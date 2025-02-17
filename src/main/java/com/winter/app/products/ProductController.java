@@ -30,6 +30,16 @@ public class ProductController {
 	}
 	
 	
+	@RequestMapping(value = "add", method = RequestMethod.GET)
+	public String add() throws Exception {
+		
+		System.out.println("프로덕트 추가 메서드");
+		
+		return "products/add";
+		
+	}
+	
+	
 	
 	
 

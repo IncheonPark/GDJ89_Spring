@@ -17,8 +17,6 @@
 	<div class="row col-md-8 offset-md-2">
 		
 		<!-- 컨텐츠 내용 작성 -->
-		<h1>디테일 페이지입니다.</h1>
-		
 		
 	</div>
 </div>
