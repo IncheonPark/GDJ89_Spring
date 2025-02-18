@@ -18,24 +18,25 @@
 		
 		<!-- 컨텐츠 내용 작성 -->
 		<h1>상품추가 페이지입니다.</h1>
-		<form>
+		<form action="./add" method="post">
 		  <div class="mb-3 col-3">
 		    <label for="product_Name" class="form-label">상품 이름</label>
-		    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+		    <input type="text" class="form-control" id="product_Name" name="productName" placeholder="상품명 입력">
 		  </div>
 		  <div class="mb-3 col-3">
 		    <label for="product_Rate" class="form-label">상품 이율</label>
-		    <input type="text" class="form-control" id="exampleInputPassword1">
+		    <input type="text" class="form-control" id="product_Rate" name="productRate" placeholder="0.00">
 		  </div>
 		  <div class="mb-3 col-3">
 		    <label for="product_Date" class="form-label">가입일</label>
-		    <input type="text" class="form-control" id="exampleInputPassword1">
+		    <input type="date" class="form-control" id="product_Date" name="productDate" >
 		  </div>
 		  <div class="mb-3 col-3">
 		    <label for="product_Detail" class="form-label">상세 설명</label>
-		    <input type="text" class="form-control" id="exampleInputPassword1">
+		    <input type="text" class="form-control" id="product_Detail" name="productDetail" >
 		  </div>
-		  <button type="submit" class="btn btn-primary">Submit</button>
+		  
+		  <button type="submit" class="btn btn-primary">상품 등록</button>
 		</form>
 		
 		
