@@ -19,6 +19,26 @@
 		<!-- 컨텐츠 내용 작성 -->
 		<h1>디테일 페이지입니다.</h1>
 		
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">상품번호</th>
+		      <th scope="col">제품명</th>
+		      <th scope="col">상품이율</th>
+		      
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	
+			    <tr>
+			      <th scope="row">${dto.productNum }</th>
+			      <td>${dto.productName }</td>
+			      <td>${dto.productRate }</td>
+			    </tr>
+		    
+		  </tbody>
+		</table>
+		
 		
 	</div>
 </div>

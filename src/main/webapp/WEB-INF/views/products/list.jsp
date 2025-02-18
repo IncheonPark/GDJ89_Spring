@@ -22,29 +22,17 @@
 		    <tr>
 		      <th scope="col">상품번호</th>
 		      <th scope="col">제품명</th>
-		      <th scope="col">제품번호</th>
-		      <th scope="col">상세설명</th>
+		      <th scope="col">상품이율</th>		      
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <th scope="row">1</th>
-		      <td>적금</td>
-		      <td>A</td>
-		      <td>적금방식</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>예금</td>
-		      <td>B</td>
-		      <td>예금방식</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td>펀드</td>
-		      <td>C</td>
-		      <td>펀드투자</td>
-		    </tr>
+		  	<c:forEach items="${list }" var="v">
+			    <tr style="cursor:pointer;" onClick="location.href='./detail?productNum=${v.productNum}'">
+			      <th scope="row">${v.productNum }</th>			      
+			      <td>${v.productName }</td>
+			      <td>${v.productRate }</td>
+			    </tr>
+		    </c:forEach>
 		  </tbody>
 		</table>
 		<a href="./add" class="btn btn-outline-info">상품 등록</a>
