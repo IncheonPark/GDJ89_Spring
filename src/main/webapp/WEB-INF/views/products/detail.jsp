@@ -9,6 +9,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="/WEB-INF/views/templates/boot_css.jsp"></c:import>
+<style>
+ .btn {
+ 	margin-bottom: 10px;
+ }
+</style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <c:import url="/WEB-INF/views/templates/layout_header.jsp"></c:import>
@@ -38,7 +43,8 @@
 		    
 		  </tbody>
 		</table>
-		
+		<a href="./update?productNum=${dto.productNum}" class="btn btn-outline-info">상품 수정</a>
+		<a href="./delete?productNum=${dto.productNum}" class="btn btn-outline-danger">상품 삭제</a>
 		
 	</div>
 </div>

@@ -2,6 +2,7 @@ package com.winter.app.products;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,22 +43,19 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String getDetail(Model model, ProductDTO dto) throws Exception {
+	public ModelAndView getDetail(Model model, ProductDTO dto) throws Exception {
 		
 		System.out.println("Product Detail");
 		
 		ProductDTO dto2 = service.getDetail(dto);
 		
-		model.addAttribute("dto", dto2);
-		return "products/detail";
+		ModelAndView mv = new ModelAndView();
+		//model
+		mv.addObject("dto", dto2);
 		
-//		ModelAndView mv = new ModelAndView();
-//		//model
-//		mv.addObject("속성명", "값");
-//		
-//		//view
-//		mv.setViewName("products/detail");
-//		return mv;
+		//view
+		mv.setViewName("products/detail");
+		return mv;
 				
 	}
 	
@@ -65,7 +63,7 @@ public class ProductController {
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public String add(ModelAndView mv) throws Exception {
 		
-		System.out.println("프로덕트 추가 메서드 GET");
+		System.out.println("Product add 메서드 GET");
 		
 //		return mv;
 		return "products/add";
@@ -77,7 +75,7 @@ public class ProductController {
 //	public String add(HttpServletRequest request) throws Exception {
 	public String add(ProductDTO dto) throws Exception {
 		
-		System.out.println("프로덕트 추가 메서드 POST");
+		System.out.println("Product add 메서드 POST");
 		
 		/* 파라미터 처리 방법
 		 * 1. 모든 요청 정보는 Request에 있다. (URL, METHOD, PARAMETER, COOKIE 등)
@@ -97,14 +95,79 @@ public class ProductController {
 		
 		int result = service.add(dto);
 		
-		
+		if (result > 0) {
+			System.out.println("입력 성공");
+		} else {
+			System.out.println("입력 실패");
+		}
 		
 		return "redirect:./list";
+				
+	}
+	
+	
+	//
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public String delete(ProductDTO dto) throws Exception {
+		System.out.println("Product delete 메서드");
+		int result = service.delete(dto);
 		
+		if (result > 0) {
+			System.out.println("삭제 성공");
+		} else {
+			System.out.println("삭제 실패");
+		}
 		
+		return "redirect:./list";
+	}
+	
+	
+	//
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public ModelAndView update(Model model, ProductDTO dto) throws Exception {
+		
+		System.out.println("Product update 메서드 GET");
+		
+		ProductDTO dto2 = service.getDetail(dto);
+		
+		ModelAndView mv = new ModelAndView();
+		//model
+		mv.addObject("dto", dto2);
+		
+		//view
+		mv.setViewName("products/update");
+		return mv;
 		
 	}
 	
+	
+	//
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public ModelAndView update(ProductDTO dto) throws Exception {
+		
+		System.out.println("Product update 메서드 POST");
+		
+		int result = service.update(dto);
+		
+		if (result > 0) {
+			System.out.println("수정 성공");
+		} else {
+			System.out.println("수정 실패");
+		}
+		
+		
+		ModelAndView mv = new ModelAndView();
+		
+//		List<ProductDTO> ar = new ArrayList<ProductDTO>();
+//		ar.add(dto);
+//		mv.addObject("list", ar);
+		
+		mv.setViewName("redirect:./list");
+//		mv.setViewName("products/list");
+		
+		return mv;
+		
+	}
 	
 	
 	

@@ -24,12 +24,8 @@
 		<!-- setter 호출 primitive or String 타입 넣을 때 value -->
 		<property name="name" value="월E"></property>
 		<property name="age" value="10"></property>
-	</bean>
-		
-	
-	
-	<bean class="com.winter.app.parts.LeftArm" name="leftArm"></bean>
-	
+	</bean>		
+	<bean class="com.winter.app.parts.LeftArm" name="leftArm"></bean>	
 	<bean class="com.winter.app.parts.RightArm" name="rightArm"></bean>
 	
 	

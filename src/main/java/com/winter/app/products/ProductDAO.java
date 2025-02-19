@@ -6,36 +6,27 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.winter.app.utils.DBConnection;
 
 // DAO역할의 해당 클래스의 객체를 생성
 @Repository
 public class ProductDAO {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	private final String NAMESPACE="com.winter.app.products.ProductDAO.";
 	
 	
 	// list
 	public List<ProductDTO> getList() throws Exception {
 		System.out.println("DAO LIST");
 		
-		Connection con = DBConnection.getConnection();
-		String sql = "SELECT * FROM PRODUCTS ORDER BY PRODUCTNUM DESC";
 		
-		PreparedStatement st = con.prepareStatement(sql);
-		ResultSet rs = st.executeQuery();
-		
-		List<ProductDTO> ar = new ArrayList<ProductDTO>();
-		while(rs.next()) {
-			ProductDTO dto = new ProductDTO();
-			dto.setProductNum(rs.getLong("PRODUCTNUM"));
-			dto.setProductName(rs.getString("PRODUCTNAME"));
-			dto.setProductRate(rs.getDouble("PRODUCTRATE"));
-			ar.add(dto);
-		}
-		
-		DBConnection.disConnection(st, con);
-		return ar;
+		List<ProductDTO> list = sqlSession.selectList(NAMESPACE + "getList");
+		return list;
 		
 	}
 	
@@ -43,25 +34,28 @@ public class ProductDAO {
 	// detail
 	public ProductDTO getDetail(ProductDTO dto1) throws Exception {
 		
-		Connection con = DBConnection.getConnection();
-		String sql = "SELECT * FROM PRODUCTS WHERE PRODUCTNUM=?";
-		
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setLong(1, dto1.getProductNum());
-		
-		ResultSet rs = st.executeQuery();
-		
-		ProductDTO dto = new ProductDTO();
-		
-		if(rs.next()) {
-			dto.setProductNum(rs.getLong("PRODUCTNUM"));
-			dto.setProductName(rs.getString("PRODUCTNAME"));
-			dto.setProductRate(rs.getDouble("PRODUCTRATE"));
-			dto.setProductDate(rs.getDate("PRODUCTDATE"));
-			dto.setProductDetail(rs.getString("PRODUCTDETAIL"));
-		}
-		
-		DBConnection.disConnection(rs, st, con);
+//		Connection con = DBConnection.getConnection();
+//		String sql = "SELECT * FROM PRODUCTS WHERE PRODUCTNUM=?";
+//		
+//		PreparedStatement st = con.prepareStatement(sql);
+//		st.setLong(1, dto1.getProductNum());
+//		
+//		ResultSet rs = st.executeQuery();
+//		
+//		ProductDTO dto = new ProductDTO();
+//		
+//		if(rs.next()) {
+//			dto.setProductNum(rs.getLong("PRODUCTNUM"));
+//			dto.setProductName(rs.getString("PRODUCTNAME"));
+//			dto.setProductRate(rs.getDouble("PRODUCTRATE"));
+//			dto.setProductDate(rs.getDate("PRODUCTDATE"));
+//			dto.setProductDetail(rs.getString("PRODUCTDETAIL"));
+//		}
+//		
+//		DBConnection.disConnection(rs, st, con);
+//		return dto;
+		//statement => mapper의 id값
+		ProductDTO dto = sqlSession.selectOne(NAMESPACE + "getDetail", dto1);
 		return dto;
 		
 	}
@@ -70,24 +64,24 @@ public class ProductDAO {
 	// add
 	public int add(ProductDTO dto) throws Exception {
 		
-		Connection con = DBConnection.getConnection();
-		String sql = "INSERT INTO PRODUCTS VALUES (PRODUCTNUM_SEQ.NEXTVAL, ?, ?, ?, ?)";
 		
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setString(1, dto.getProductName());
-		st.setDouble(2, dto.getProductRate());
-		st.setDate(3, dto.getProductDate());
-		st.setString(4, dto.getProductDetail());
-		
-		int isDone = st.executeUpdate();
-		
-		return isDone;
+		return sqlSession.insert(NAMESPACE + "add", dto);
 	}
 	
 	
+	//
+	public int delete(ProductDTO dto) throws Exception {
+		
+		return sqlSession.delete(NAMESPACE + "delete", dto);
+	}
 	
 	
-	
+	//
+	public int update(ProductDTO dto) throws Exception {
+		
+		return sqlSession.update(NAMESPACE + "update", dto);
+		
+	}
 	
 	
 	

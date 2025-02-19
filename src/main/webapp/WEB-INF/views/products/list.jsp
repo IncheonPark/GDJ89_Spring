@@ -28,7 +28,7 @@
 		  <tbody>
 		  	<c:forEach items="${list }" var="v">
 			    <tr style="cursor:pointer;" onClick="location.href='./detail?productNum=${v.productNum}'">
-			      <th scope="row">${v.productNum }</th>			      
+			      <th scope="row">${v.productNum }</th>
 			      <td>${v.productName }</td>
 			      <td>${v.productRate }</td>
 			    </tr>

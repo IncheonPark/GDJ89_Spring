@@ -17,7 +17,7 @@ public class ProductService {
 	
 	// list
 	public List<ProductDTO> getList() throws Exception {
-		System.out.println("Service 리스트");
+		System.out.println("서비스 리스트");
 		List<ProductDTO> ar = dao.getList();
 		
 		return ar;
@@ -43,6 +43,25 @@ public class ProductService {
 		return isDone;
 		
 	}
+	
+	
+	// delete
+	public int delete(ProductDTO dto) throws Exception {
+		System.out.println("서비스 딜리트");
+		
+		return dao.delete(dto);
+		
+	}
+	
+	
+	// update
+	public int update(ProductDTO dto) throws Exception {
+		System.out.println("서비스 업데이트");
+		
+		return dao.update(dto);
+		
+	}
+	
 	
 	
 
