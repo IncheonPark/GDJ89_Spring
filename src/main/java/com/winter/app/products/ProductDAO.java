@@ -20,7 +20,7 @@ public class ProductDAO {
 		System.out.println("DAO LIST");
 		
 		Connection con = DBConnection.getConnection();
-		String sql = "SELECT * FROM PRODUCTS";
+		String sql = "SELECT * FROM PRODUCTS ORDER BY PRODUCTNUM DESC";
 		
 		PreparedStatement st = con.prepareStatement(sql);
 		ResultSet rs = st.executeQuery();
@@ -71,12 +71,13 @@ public class ProductDAO {
 	public int add(ProductDTO dto) throws Exception {
 		
 		Connection con = DBConnection.getConnection();
-		String sql = "INSERT INTO PRODUCTS VALUES (PRODUCTNUM_SEQ.NEXTVAL, ?, ?, SYSDATE+365, ?)";
+		String sql = "INSERT INTO PRODUCTS VALUES (PRODUCTNUM_SEQ.NEXTVAL, ?, ?, ?, ?)";
 		
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setString(1, dto.getProductName());
 		st.setDouble(2, dto.getProductRate());
-		st.setString(3, dto.getProductDetail());
+		st.setDate(3, dto.getProductDate());
+		st.setString(4, dto.getProductDetail());
 		
 		int isDone = st.executeUpdate();
 		

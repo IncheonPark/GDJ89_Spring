@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/products/*")
@@ -28,13 +29,13 @@ public class ProductController {
 	 * */
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String getList(Model model) throws Exception {
+	public void getList(Model model) throws Exception {
 		
 		System.out.println("Product List");
 		List<ProductDTO> ar = service.getList();
 		
 		model.addAttribute("list", ar);
-		return "products/list";
+		//return "products/list";
 				
 	}
 	
@@ -49,15 +50,24 @@ public class ProductController {
 		
 		model.addAttribute("dto", dto2);
 		return "products/detail";
+		
+//		ModelAndView mv = new ModelAndView();
+//		//model
+//		mv.addObject("속성명", "값");
+//		
+//		//view
+//		mv.setViewName("products/detail");
+//		return mv;
 				
 	}
 	
 	
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public String add() throws Exception {
+	public String add(ModelAndView mv) throws Exception {
 		
 		System.out.println("프로덕트 추가 메서드 GET");
 		
+//		return mv;
 		return "products/add";
 		
 	}
@@ -87,7 +97,11 @@ public class ProductController {
 		
 		int result = service.add(dto);
 		
+		
+		
 		return "redirect:./list";
+		
+		
 		
 	}
 	
