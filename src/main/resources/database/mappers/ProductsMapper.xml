@@ -33,6 +33,18 @@
   		PRODUCTDATE=#{productDate}, PRODUCTDETAIL=#{productDetail} WHERE PRODUCTNUM=#{productNum}
   	</update>
   	
+  	<!-- 연습용 -->
+  	<!-- 맵 타입으로 리턴 시, 키에는 지정한 컬럼이 들어가고, 밸류에는 조회한 값이 들어간다 -->
+  	<select id="test2" resultType="java.util.Map">
+  		SELECT MAX(RPDOCUTRATE) AS MAX, MIN(PRODUCTRATE) AS MIN, COUNT(PRODUCTNUM) COUNT 
+  		FROM PRODUCTS
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	
   	
   </mapper>
   

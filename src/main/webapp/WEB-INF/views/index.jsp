@@ -8,6 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<c:if test="${not empty requestScope.message }">
+	<script type="text/javascript">		
+		var message = "<c:out value='${requestScope.message}'/>";
+		alert(message);
+	</script>
+</c:if>
 <c:import url="/WEB-INF/views/templates/boot_css.jsp"></c:import>
 </head>
 <body class="d-flex flex-column min-vh-100">

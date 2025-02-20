@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL문 끝에 ; 붙이지 말기 -->
+  
+  <!-- namespace값은 다른 mapper의 namespace와 중복되면 안된다 -->
+  <!-- namespace값은 또한 비어 있으면 안된다. 서버 시작 시 익셉션 발생한다. -->
+  <!-- DAO의 클래스명을 주로 사용 -->
+  <mapper namespace="com.winter.app.users.UserDAO">
+  	<!-- DAO의 메서드명을 ID로 주로 사용 -->  	
+  	<!-- ? 값 #{getter의 이름 또는 DTO가 아닐 때는 변수명으로 한다} -->
+  	
+  	<select id="userNameCheck" parameterType="com.winter.app.users.UserDTO" 
+  	resultType="java.lang.Integer">
+  		SELECT COUNT(USERNAME) FROM USERS WHERE USERNAME=#{userName}
+  	</select>	
+  	
+  	<insert id="join" parameterType="com.winter.app.users.UserDTO">
+  		INSERT INTO USERS VALUES 
+  		(#{userName}, #{password}, #{name}, #{phone}, #{email})  		
+  		
+  	</insert>
+  	
+  	<select id="getDetail" parameterType="UserDTO" resultType="UserDTO">
+  		SELECT * FROM USERS WHERE USERNAME=#{userName}
+  	</select>
+  	
+  	<select id="login" parameterType="UserDTO" resultType="UserDTO">
+  		SELECT * FROM USERS WHERE USERNAME=#{userName} AND PASSWORD=#{password}
+  	</select>
+  	
+  	<update id="sample3"></update>
+  	
+  	<delete id="sample4"></delete>
+  	
+  	
+  	
+  	
+  	
+  </mapper>

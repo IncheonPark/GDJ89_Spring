@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- 프로퍼티 > 컨텍스트 지정법 -->
+	<context:property-placeholder location="classpath:database/configs/database.properties"/>
+	
+	<!-- 프로퍼티 > 객체 지정법 -->
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		 <property name="location" value="classpath:경로명"></property>
+		<property name="locations" value="classpath:경로명2">
+			<list>
+				<value>classpath:경로명</value>
+				<value>classpath:경로명</value>
+			</list>
+		</property>
+	</bean> -->
+	
+	
+	<!-- <util:properties id="" location=""></util:properties> -->
+	
+	
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+		<property name="username" value="${oracle.user}"></property>
+		<property name="password" value="${oracle.pw}"></property>
+		<property name="url" value="${oracle.url}"></property>
+		<property name="driverClassName" value="${oracle.driver}"></property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:database/configs/config.xml"></property>
+		<property name="mapperLocations" value="classpath:database/mappers/*Mapper.xml"></property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
+		<!-- 매개변수가 있는 생성자 -->
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
+
+
+
+</beans>
