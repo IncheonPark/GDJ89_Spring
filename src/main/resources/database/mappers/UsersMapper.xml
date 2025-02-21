@@ -32,6 +32,10 @@
   		SELECT * FROM USERS WHERE USERNAME=#{userName} AND PASSWORD=#{password}
   	</select>
   	
+  	<delete id="delete" parameterType="UserDTO">
+  		DELETE USERS WHERE USERNAME=#{userName}
+  	</delete>
+  	
   	<update id="sample3"></update>
   	
   	<delete id="sample4"></delete>

@@ -52,6 +52,16 @@
 			        </li>
 			        </c:if>
 			        
+			        <li class="nav-item">
+			        	<a class="nav-link" href="/notice/list">공지사항</a>
+			        </li>
+			        
+			        <c:if test="${not empty user }">
+			        <li class="nav-item">
+			        	<a class="nav-link" href="#">${user.userName}님 접속 중</a>
+			        </li>
+			        </c:if>
+			        
 			      </ul>
 			      <form class="d-flex" role="search">
 			        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

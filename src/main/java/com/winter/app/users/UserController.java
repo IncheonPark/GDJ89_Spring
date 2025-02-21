@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.winter.app.notice.NoticeDTO;
+
 @Controller
 @RequestMapping(value="/users/*")
 public class UserController {
@@ -24,7 +26,7 @@ public class UserController {
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public void loginG() throws Exception {
 		
-		System.out.println("User 컨트롤러, joinG");
+		System.out.println("User 컨트롤러, loginG");
 	}
 	
 	
@@ -112,6 +114,31 @@ public class UserController {
 			return mv;
 		}
 				
+		
+	}
+	
+	
+	//
+	@RequestMapping(value="delete", method=RequestMethod.GET)
+	public ModelAndView delete(UserDTO dto1, HttpSession session) throws Exception {
+		
+		System.out.println("유저 컨트롤러 딜리트");
+		
+		int result = service.delete(dto1);
+		if(result > 0) {
+			System.out.println("삭제 성공");
+		} else {
+			System.out.println("삭제 실패");
+		}
+		
+		session.invalidate();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("result", "회원 탈퇴 완료");
+		mv.addObject("path", "/");
+		mv.setViewName("commons/result");
+		
+		return mv;
 		
 	}
 	

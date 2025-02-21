@@ -3,6 +3,8 @@ package com.winter.app.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.notice.NoticeDTO;
+
 @Service
 public class UserService {
 	
@@ -48,6 +50,16 @@ public class UserService {
 		
 	}
 	
+	
+	//
+	public int delete(UserDTO dto1) throws Exception {
+		
+		System.out.println("유저 서비스 딜리트 ");
+		
+		int result = dao.delete(dto1);
+		return result;
+		
+	}
 	
 
 }

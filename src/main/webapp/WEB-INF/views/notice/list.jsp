@@ -9,11 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="/WEB-INF/views/templates/boot_css.jsp"></c:import>
-<style>
- .btn {
- 	margin-bottom: 10px;
- }
-</style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <c:import url="/WEB-INF/views/templates/layout_header.jsp"></c:import>
@@ -22,30 +17,33 @@
 	<div class="row col-md-8 offset-md-2">
 		
 		<!-- 컨텐츠 내용 작성 -->
-		<h1>회원정보 페이지입니다</h1>
-		
 		<table class="table">
 		  <thead>
 		    <tr>
-		      <th scope="col">패스워드</th>
-		      <th scope="col">이름</th>
-		      <th scope="col">전화번호</th>
-		      <th scope="col">이메일</th>
+		      <th scope="col">번호</th>
+		      <th scope="col">제목</th>
+		      <th scope="col">작성일</th>
+		      <th scope="col">조회</th>
+		      <th scope="col">글쓴이</th>
+		      
 		    </tr>
 		  </thead>
 		  <tbody>
-		  	
-			    <tr>			      
-			      <td>${dto.password }</td>
-			      <td>${dto.name }</td>
-			      <td>${dto.phone }</td>
-			      <td>${dto.email }</td>
+		  	<c:forEach items="${list }" var="v">
+			    <tr style="cursor:pointer;" onClick="location.href='./detail?boardNum=${v.boardNum}'">
+			      <td>${v.boardNum }</td>
+			      <td>${v.boardTitle }</td>
+			      <td>${v.boardDate }</td>
+			      <td>${v.boardHit }</td>
+			      <td>${v.userName }</td>
 			    </tr>
-		    
+		    </c:forEach>
 		  </tbody>
 		</table>
-		<a href="./update?userName=${dto.userName}" class="btn btn-outline-info">정보 수정</a>
-		<a href="./delete?userName=${dto.userName}" class="btn btn-outline-danger">회원 탈퇴</a>
+		
+		<c:if test="${not empty user }">
+		<a href="./add" class="btn btn-outline-info">글 작성</a>
+		</c:if>
 		
 	</div>
 </div>

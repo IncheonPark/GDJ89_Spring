@@ -4,6 +4,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.winter.app.notice.NoticeDTO;
+
 @Repository
 public class UserDAO {
 	
@@ -45,6 +47,16 @@ public class UserDAO {
 		
 	}
 	
+	
+	//
+	public int delete(UserDTO dto1) throws Exception {
+		
+		System.out.println("유저 dao 딜리트 ");
+		
+		int result = sqlSession.delete(NAMESPACE + "delete", dto1);
+		return result;
+		
+	}
 	
 	
 
