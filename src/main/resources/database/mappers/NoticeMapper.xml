@@ -13,8 +13,19 @@
   	<!-- DAO의 메서드명을 ID로 주로 사용 -->  	
   	<!-- ? 값 #{getter의 이름 또는 DTO가 아닐 때는 변수명으로 한다} -->
   	
-  	<select id="getList" resultType="NoticeDTO">
-  		SELECT * FROM NOTICE ORDER BY BOARDNUM DESC
+  	<select id="totalCount" resultType="java.lang.Long">
+  		SELECT COUNT(BOARDNUM) FROM NOTICE
+  	</select>
+  	
+  	<select id="getList" resultType="NoticeDTO" parameterType="Pager">
+  		SELECT * FROM 
+		(SELECT ROWNUM RN, M.* FROM 
+			(
+			SELECT * FROM NOTICE  
+			ORDER BY BOARDNUM DESC 
+			) M 
+		) 
+		WHERE RN BETWEEN #{startNum} AND #{endNum}
   	</select>
   	
   	<select id="getDetail" parameterType="NoticeDTO" resultType="NoticeDTO">

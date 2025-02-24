@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.winter.app.pages.Pager;
 
 @Controller
 @RequestMapping(value = "/products/*")
@@ -30,12 +33,15 @@ public class ProductController {
 	 * */
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public void getList(Model model) throws Exception {
+	public void getList(Model model, 
+			Pager pager) throws Exception {
+		//@RequestParam(value="p", defaultValue="1", required=false) Long page) throws Exception {
 		
 		System.out.println("Product List");
-		List<ProductDTO> ar = service.getList();
+		List<ProductDTO> ar = service.getList(pager);
 		
 		model.addAttribute("list", ar);
+		model.addAttribute("pager", pager);
 		//return "products/list";
 				
 	}

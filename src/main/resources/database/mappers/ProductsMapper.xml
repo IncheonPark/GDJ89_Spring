@@ -15,8 +15,34 @@
   		<!-- ? 값 #{getter의 이름 또는 DTO가 아닐 때는 변수명으로 한다} -->
   	</select>
   	
-  	<select id="getList" resultType="com.winter.app.products.ProductDTO">
-  		SELECT * FROM PRODUCTS ORDER BY PRODUCTNUM DESC
+  	<select id="totalCount" resultType="java.lang.Long">
+  		SELECT COUNT(PRODUCTNUM) FROM PRODUCTS
+  	</select>
+  	
+  	<select id="getList" resultType="com.winter.app.products.ProductDTO"
+  	parameterType="Pager">
+  		SELECT * FROM
+		(SELECT ROWNUM RN, MAIN.* FROM
+		
+			(
+			SELECT * FROM PRODUCTS 
+			WHERE 
+			<!-- #을 사용하지 않는다 -->
+			<if test="kind == 'k1'"> 
+			PRODUCTNAME LIKE '%'||#{search}||'%' 
+			</if>
+			<if test="kind == 'k2'">
+			PRODUCTDETAIL LIKE '%'||#{search}||'%' 
+			</if>
+			<if test="kind == 'k3'">
+			PRODUCTNAME LIKE '%'||#{search}||'%' 
+			OR
+			PRODUCTDETAIL LIKE '%'||#{search}||'%' 
+			</if>
+			ORDER BY PRODUCTNUM DESC
+			) MAIN
+		)
+		WHERE RN BETWEEN #{startNum} AND #{endNum}
   	</select>
   	
   	<insert id="add" parameterType="com.winter.app.products.ProductDTO">
@@ -39,6 +65,7 @@
   		SELECT MAX(RPDOCUTRATE) AS MAX, MIN(PRODUCTRATE) AS MIN, COUNT(PRODUCTNUM) COUNT 
   		FROM PRODUCTS
   	</select>
+  	
   	
   	
   	

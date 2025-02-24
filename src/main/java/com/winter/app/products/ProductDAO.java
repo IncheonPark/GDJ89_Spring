@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.winter.app.pages.Pager;
+
 
 // DAO역할의 해당 클래스의 객체를 생성
 @Repository
@@ -20,12 +22,20 @@ public class ProductDAO {
 	private final String NAMESPACE="com.winter.app.products.ProductDAO.";
 	
 	
+	//
+	public Long totalCount() throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE + "totalCount");
+		
+	}
+	
+	
 	// list
-	public List<ProductDTO> getList() throws Exception {
+	public List<ProductDTO> getList(Pager pager) throws Exception {
 		System.out.println("DAO LIST");
 		
 		
-		List<ProductDTO> list = sqlSession.selectList(NAMESPACE + "getList");
+		List<ProductDTO> list = sqlSession.selectList(NAMESPACE + "getList", pager);
 		return list;
 		
 	}
@@ -82,6 +92,7 @@ public class ProductDAO {
 		return sqlSession.update(NAMESPACE + "update", dto);
 		
 	}
+	
 	
 	
 	

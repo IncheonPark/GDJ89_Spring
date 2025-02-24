@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.winter.app.pages.Pager;
+
 @Repository
 public class NoticeDAO {
 	
@@ -17,11 +19,12 @@ public class NoticeDAO {
 	
 	
 	//
-	public List<NoticeDTO> getList() throws Exception {
+	public List<NoticeDTO> getList(Pager pager) throws Exception {
 		
 		System.out.println("노티스 dao 겟리스트");
 		
-		List<NoticeDTO> list = session.selectList(NAMESPACE + "getList");
+		List<NoticeDTO> list = session.selectList(NAMESPACE + "getList", pager);
+		System.out.println("list.size = " + list.size());
 		return list;
 		
 	}
@@ -66,6 +69,12 @@ public class NoticeDAO {
 		
 	}
 	
+	//
+	public Long totalCount() throws Exception {
+		
+		return session.selectOne(NAMESPACE + "totalCount");
+		
+	}
 	
 	
 	

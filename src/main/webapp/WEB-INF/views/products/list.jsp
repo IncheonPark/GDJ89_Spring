@@ -7,6 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+.add {
+	margin-bottom: 30px;
+}
+</style>
 <title>Insert title here</title>
 <c:import url="/WEB-INF/views/templates/boot_css.jsp"></c:import>
 </head>
@@ -17,6 +22,29 @@
 	<div class="row col-md-8 offset-md-2">
 		
 		<!-- 컨텐츠 내용 작성 -->
+		
+		<form action="./list" class="row row-cols-lg-auto g-3 align-items-center">
+		
+		  <div class="col-12">
+		    <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+		    <select name="kind" class="form-select" id="inlineFormSelectPref">		      
+		      <option value="k1">제목</option>
+		      <option value="k2">내용</option>
+		      <option value="k3">제목+내용</option>
+		    </select>
+		  </div>
+				
+		  <div class="col-12">
+		    <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+            <input type="text" name="search" class="form-control" id="inlineFormInputGroupUsername" placeholder="검색어 입력">
+ 		  </div>
+		  
+		  <div class="col-12">
+		    <button type="submit" class="btn btn-primary">Submit</button>
+		  </div>
+		</form>
+		
+		
 		<table class="table">
 		  <thead>
 		    <tr>
@@ -35,7 +63,17 @@
 		    </c:forEach>
 		  </tbody>
 		</table>
-		<a href="./add" class="btn btn-outline-info">상품 등록</a>
+		<a href="./add" class="btn btn-outline-info add">상품 등록</a>
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination">
+		    <li class="page-item"><a class="page-link" href="./list?page=${pager.start-1}">Previous</a></li>
+		    
+		    <c:forEach begin="${pager.start }" end="${pager.end}" var="i">
+		    <li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
+		    </c:forEach>
+		    <li class="page-item ${pager.endCheck ? 'disabled' : ' '}"><a class="page-link" href="./list?page=${pager.end+1}">Next</a></li>
+		  </ul>
+		</nav>
 		
 	</div>
 </div>

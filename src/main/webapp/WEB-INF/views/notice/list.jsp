@@ -16,6 +16,8 @@
 <div class="container-fluid my-5">
 	<div class="row col-md-8 offset-md-2">
 		
+		
+		
 		<!-- 컨텐츠 내용 작성 -->
 		<table class="table">
 		  <thead>
