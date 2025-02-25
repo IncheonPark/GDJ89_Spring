@@ -27,15 +27,15 @@
 		    <label for="password" class="form-label">패스워드</label>
 		    <input type="text" class="form-control" id="password" name="password" >
 		  </div>
-		  
-		  
+		  		  
 		  <button type="submit" class="btn btn-primary">로그인 하기</button>
+		  <button type="button" id="checkEmpty">공백 확인</button>
 		</form>
 		
 		
 	</div>
 </div>
-
+<script src="/resources/js/login.js"></script>
 
 
 <c:import url="/WEB-INF/views/templates/layout_footer.jsp"></c:import>
