@@ -26,19 +26,22 @@
 		
 			(
 			SELECT * FROM PRODUCTS 
-			WHERE 
+			WHERE
 			<!-- #을 사용하지 않는다 -->
-			<if test="kind == 'k1'"> 
-			PRODUCTNAME LIKE '%'||#{search}||'%' 
-			</if>
-			<if test="kind == 'k2'">
-			PRODUCTDETAIL LIKE '%'||#{search}||'%' 
-			</if>
-			<if test="kind == 'k3'">
-			PRODUCTNAME LIKE '%'||#{search}||'%' 
-			OR
-			PRODUCTDETAIL LIKE '%'||#{search}||'%' 
-			</if>
+			<choose>
+				<when test="kind == 'k2'">
+					PRODUCTDETAIL LIKE '%'||#{search}||'%'
+				</when>
+				<when test="kind == 'k3'">
+					PRODUCTNAME LIKE '%'||#{search}||'%' 
+					OR
+					PRODUCTDETAIL LIKE '%'||#{search}||'%' 
+				</when>
+				<otherwise>
+					PRODUCTNAME LIKE '%'||#{search}||'%'
+				</otherwise>
+			</choose>
+			
 			ORDER BY PRODUCTNUM DESC
 			) MAIN
 		)
