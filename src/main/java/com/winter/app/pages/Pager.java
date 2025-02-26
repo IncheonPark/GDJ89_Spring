@@ -21,6 +21,7 @@ public class Pager {
 	private Long perPage;
 	
 	
+	//-----------------------------
 	private Long start;
 	
 	private Long end;
@@ -39,14 +40,20 @@ public class Pager {
 		this.endNum = this.getPage()*this.getPerPage();
 	}
 	
+	
+	//
 	public void make(Long totalCount) {
+		
+		if(totalCount == 0) {
+			totalCount = 1L;
+		}
+		
 		//1. TotalPage
 		Long totalPage = totalCount/10;
 		if(totalCount%10 != 0) {
 			totalPage++;
 		}
-		
-		
+				
 		//2.TotalBlock 
 		Long totalBlock = totalPage/5;
 		if(totalPage %5 !=0) {
@@ -54,7 +61,7 @@ public class Pager {
 		}
 		
 		//3. page번호로 Block 번호 구하기
-		Long curBlock = this.getPage()/5;
+		Long curBlock = this.getPage()/5; //Page가 null일 때 getPage()는 1을 반환
 		
 		if(this.getPage()%5 != 0) {
 			curBlock++;

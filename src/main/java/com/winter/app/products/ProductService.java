@@ -23,7 +23,7 @@ public class ProductService {
 //		Pager pager = new Pager();
 //		pager.setPage(page);
 		
-		Long totalCount = dao.totalCount();
+		Long totalCount = dao.totalCount(pager);
 		
 		pager.make(totalCount);
 		

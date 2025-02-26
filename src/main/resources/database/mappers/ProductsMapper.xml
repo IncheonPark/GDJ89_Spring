@@ -15,11 +15,27 @@
   		<!-- ? 값 #{getter의 이름 또는 DTO가 아닐 때는 변수명으로 한다} -->
   	</select>
   	
-  	<sql id="freeSearch" ></sql><!-- 1. 쿼리문 넣고 -->
+  	<sql id="freeSearch" >
+  		
+  	</sql><!-- 1. 쿼리문 넣고 -->
   	
-  	<select id="totalCount" resultType="java.lang.Long">
+  	<select id="totalCount" resultType="java.lang.Long" parameterType="Pager">
   		SELECT COUNT(PRODUCTNUM) FROM PRODUCTS
+  		WHERE PRODUCTNUM > 0 AND
   		<include refid="freeSearch"></include><!-- 2. 쿼리문 템플릿처럼 가져오고 -->
+  		<choose>
+  			<when test="kind=='k2'">
+  				PRODUCTDETAIL LIKE '%'||#{search}||'%'
+  			</when>
+  			<when test="kind=='k3'">
+  				PRODUCTNAME LIKE '%'||#{search}||'%'
+  				or
+  				PRODUCTDETAIL LIKE '%'||#{search}||'%'
+  			</when>
+  			<otherwise>
+  				PRODUCTNAME LIKE '%'||#{search}||'%'
+  			</otherwise>
+  		</choose>
   	</select>
   	
   	<select id="getList" resultType="com.winter.app.products.ProductDTO"
@@ -29,7 +45,7 @@
 		
 			(
 			SELECT * FROM PRODUCTS 
-			WHERE
+			WHERE PRODUCTNUM > 0 AND
 			<!-- #을 사용하지 않는다 -->
 			<choose>
 				<when test="kind == 'k2'">
