@@ -113,7 +113,7 @@ public class ProductController {
 	
 	
 	//
-	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public String delete(ProductDTO dto) throws Exception {
 		System.out.println("Product delete 메서드");
 		int result = service.delete(dto);

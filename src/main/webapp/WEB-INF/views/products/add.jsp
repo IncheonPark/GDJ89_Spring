@@ -18,25 +18,25 @@
 		
 		<!-- 컨텐츠 내용 작성 -->
 		<h1>상품추가 페이지입니다</h1>
-		<form action="./add" method="post">
+		<form action="./add" method="post" id="addForm">
 		  <div class="mb-3 col-3">
 		    <label for="product_Name" class="form-label">상품 이름</label>
-		    <input type="text" class="form-control" id="product_Name" name="productName" placeholder="상품명 입력">
+		    <input type="text" class="form-control addInput" id="상품 이름" name="productName" placeholder="상품명 입력">
 		  </div>
 		  <div class="mb-3 col-3">
 		    <label for="product_Rate" class="form-label">상품 이율</label>
-		    <input type="text" class="form-control" id="product_Rate" name="productRate" placeholder="0.00">
+		    <input type="text" class="form-control addInput" id="상품 이율" name="productRate" placeholder="0.00">
 		  </div>
 		  <div class="mb-3 col-3">
-		    <label for="product_Date" class="form-label">가입일</label>
-		    <input type="date" class="form-control" id="product_Date" name="productDate" >
+		    <label for="product_Date" class="form-label">만기일</label>
+		    <input type="date" class="form-control addInput" id="만기일" name="productDate" >
 		  </div>
 		  <div class="mb-3 col-3">
 		    <label for="product_Detail" class="form-label">상세 설명</label>
-		    <input type="text" class="form-control" id="product_Detail" name="productDetail" >
+		    <input type="text" class="form-control addInput" id="상세 설명" name="productDetail" >
 		  </div>
 		  
-		  <button type="submit" class="btn btn-primary">상품 등록</button>
+		  <button type="button" class="btn btn-primary" id="sub1">상품 등록</button>
 		</form>
 		
 		
@@ -47,5 +47,6 @@
 
 <c:import url="/WEB-INF/views/templates/layout_footer.jsp"></c:import>
 <c:import url="/WEB-INF/views/templates/boot_js.jsp"></c:import>
+<script src="/resources/js/add.js"></script>
 </body>
 </html>

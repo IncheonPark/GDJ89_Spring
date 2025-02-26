@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <c:import url="/WEB-INF/views/templates/boot_css.jsp"></c:import>
 <style>
  .btn {
@@ -23,6 +24,15 @@
 		
 		<!-- 컨텐츠 내용 작성 -->
 		<h1>디테일 페이지입니다.</h1>
+
+		<div>
+			<form action="/test" id=form1>
+				<input type="hidden" name="productNum" value="${dto.productNum}">
+				<button type="button" id="updateBtn">수정</button>
+				<button type="button" id="deleteBtn">삭제</button>
+				<button type="button" id="proceed">진행 버튼</button>
+			</form>
+		</div>
 		
 		<table class="table">
 		  <thead>
@@ -53,5 +63,7 @@
 
 <c:import url="/WEB-INF/views/templates/layout_footer.jsp"></c:import>
 <c:import url="/WEB-INF/views/templates/boot_js.jsp"></c:import>
+
+<script src="/resources/js/detail.js"></script>
 </body>
 </html>
