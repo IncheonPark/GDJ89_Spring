@@ -13,7 +13,7 @@
   	<!-- DAO의 메서드명을 ID로 주로 사용 -->  	
   	<!-- ? 값 #{getter의 이름 또는 DTO가 아닐 때는 변수명으로 한다} -->
   	
-  	<select id="totalCount" resultType="java.lang.Long">
+  	<select id="getTotalCount" resultType="java.lang.Long">
   		SELECT COUNT(BOARDNUM) FROM QNA
   	</select>
   	
@@ -34,12 +34,26 @@
   	
   	<insert id="add" parameterType="QnaDTO">
   		INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, #{boardTitle}, SYSDATE, #{boardContent},  
-  		0, #{userName}, 0, 0, 0)
+  		0, #{userName}, QNA_SEQ.CURRVAL, 0, 0)
   	</insert>
   	
   	<update id="update" parameterType="QnaDTO">
   		UPDATE QNA SET BOARDTITLE=#{boardTitle}, BOARDCONTENT=#{boardContent}  
 		WHERE BOARDNUM=#{boardNum}
+  	</update>
+  	
+  	<!-- <update id="updateHit" parameterType="QnaDTO">
+  	
+  	</update> -->
+  	
+  	<insert id="reply" parameterType="QnaDTO">
+  		INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, #{boardTitle}, SYSDATE, #{boardContent},  
+  		0, #{userName}, #{boardRef}, #{boardStep}, #{boardDepth})	
+  	</insert>
+  	
+  	<update id="updateStep" parameterType="QnaDTO">
+  		UPDATE QNA SET BOARDSTEP=BOARDSTEP+1
+  		WHERE BOARDREF=#{boardRef} AND BOARDSTEP > #{boardStep}
   	</update>
   	 	
   	<delete id="delete" parameterType="QnaDTO">

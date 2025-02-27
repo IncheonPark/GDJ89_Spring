@@ -13,7 +13,7 @@
   	<!-- DAO의 메서드명을 ID로 주로 사용 -->  	
   	<!-- ? 값 #{getter의 이름 또는 DTO가 아닐 때는 변수명으로 한다} -->
   	
-  	<select id="totalCount" resultType="java.lang.Long">
+  	<select id="getTotalCount" resultType="java.lang.Long">
   		SELECT COUNT(BOARDNUM) FROM NOTICE
   	</select>
   	
@@ -41,6 +41,10 @@
   		UPDATE NOTICE SET BOARDTITLE=#{boardTitle}, BOARDCONTENT=#{boardContent}  
 		WHERE BOARDNUM=#{boardNum}
   	</update>
+  	
+  	<!-- <update id="updateHit" parameterType="NoticeDTO">
+  		
+  	</update> -->
   	 	
   	<delete id="delete" parameterType="NoticeDTO">
   		DELETE NOTICE WHERE BOARDNUM=#{boardNum}

@@ -1,14 +1,19 @@
-package com.winter.app.notice;
+package com.winter.app.boards.notice;
 
+import java.util.HashSet;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.winter.app.boards.BoardDTO;
 import com.winter.app.pages.Pager;
 
 @Controller
@@ -20,37 +25,55 @@ public class NoticeController {
 	
 	
 	//
+	@ModelAttribute("kind")
+	public String getKind() {
+		
+		return "공지사항";
+	}
+	
+	
+	//
 	@RequestMapping(value="list", method=RequestMethod.GET)
-	public void getList(Model model, Pager pager) throws Exception {
+	public String getList(Model model, Pager pager) throws Exception {
+		// void인 경우는 url을 String으로 반환한다.
 		
 		System.out.println("노티스 컨트롤러 겟리스트");
 		
-		List<NoticeDTO> list = service.getList(pager);
+		List<BoardDTO> list = service.getList(pager);
+		
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pager", pager);
+		
+		return "board/list";
 		
 	}
 	
 	
 	//
 	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public void getDetail(NoticeDTO dto1, Model model) throws Exception {
+	public String getDetail(NoticeDTO dto1, Model model) throws Exception {
+		// 처음 컨트롤러에서 디스패쳐 서블릿으로부터 생성된 DTO객체를 받아올 때 지정한 타입이 매퍼에서 결정된다.
+		// BoardDTO로 받아오면 매퍼에서 BoardDTO로 인식함
 		
 		System.out.println("노티스 컨트롤러 겟디테일");
-		
-		NoticeDTO dto = service.getDetail(dto1);
+				
+		NoticeDTO dto = (NoticeDTO)service.getDetail(dto1);
 		
 		model.addAttribute("dto", dto);
+		
+		return "board/detail";
 		
 	}
 	
 	
 	//
 	@RequestMapping(value="add", method=RequestMethod.GET)
-	public void addGet() throws Exception {
+	public String addGet() throws Exception {
 		
 		System.out.println("노티스 컨트롤러 애드 겟");
+		
+		return "board/boardForm";
 		
 	}
 	
@@ -79,11 +102,13 @@ public class NoticeController {
 		
 		System.out.println("노티스 컨트롤러 업데이트 겟");
 		
-		NoticeDTO dto = service.getDetail(dto1);
+		
+		
+		NoticeDTO dto = (NoticeDTO)service.getDetail(dto1);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("dto", dto);
-		mv.setViewName("notice/update");
+		mv.setViewName("board/boardForm");
 		
 		return mv;
 		

@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.winter.app.SampleTestCase;
+import com.winter.app.boards.notice.NoticeDAO;
+import com.winter.app.boards.notice.NoticeDTO;
 import com.winter.app.products.ProductDTO;
 
 public class NoticeDAOTest extends SampleTestCase {

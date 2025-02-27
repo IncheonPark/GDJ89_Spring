@@ -1,14 +1,16 @@
-package com.winter.app.notice;
+package com.winter.app.boards.notice;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.boards.BoardDTO;
+import com.winter.app.boards.BoardService;
 import com.winter.app.pages.Pager;
 
 @Service
-public class NoticeService {
+public class NoticeService implements BoardService {
 	
 	@Autowired
 	private NoticeDAO dao;
@@ -16,34 +18,36 @@ public class NoticeService {
 	
 	
 	//
-	public List<NoticeDTO> getList(Pager pager) throws Exception {
+	public List<BoardDTO> getList(Pager pager) throws Exception {
 		
 		System.out.println("노티스 서비스 겟리스트");
 		
-		Long totalCount = dao.totalCount();
+		Long totalCount = dao.getTotalCount(pager);
 		
 		pager.make(totalCount);
 		
 		pager.makeNum();
 		
 		pager.makeNum();
-		List<NoticeDTO> list = dao.getList(pager);
+		List<BoardDTO> list = dao.getList(pager);
 		return list;
 		
 	}
 	
 	//
-	public NoticeDTO getDetail(NoticeDTO dto1) throws Exception {
+	public BoardDTO getDetail(BoardDTO dto1) throws Exception {
 		
 		System.out.println("노티스 서비스 겟디테일 ");
 		
-		NoticeDTO dto = dao.getDetail(dto1);
+		
+		
+		BoardDTO dto = dao.getDetail(dto1);
 		return dto;
 		
 	}
 	
 	//
-	public int add(NoticeDTO dto1) throws Exception {
+	public int add(BoardDTO dto1) throws Exception {
 		
 		System.out.println("노티스 서비스 애드 ");
 		
@@ -53,7 +57,7 @@ public class NoticeService {
 	}
 	
 	//
-	public int update(NoticeDTO dto1) throws Exception {
+	public int update(BoardDTO dto1) throws Exception {
 		
 		System.out.println("노티스 서비스 업데이트 ");
 		
@@ -63,7 +67,7 @@ public class NoticeService {
 	}
 	
 	//
-	public int delete(NoticeDTO dto1) throws Exception {
+	public int delete(BoardDTO dto1) throws Exception {
 		
 		System.out.println("노티스 서비스 딜리트 ");
 		

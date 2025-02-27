@@ -4,7 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.winter.app.notice.NoticeDTO;
+import com.winter.app.boards.notice.NoticeDTO;
 
 @Repository
 public class UserDAO {

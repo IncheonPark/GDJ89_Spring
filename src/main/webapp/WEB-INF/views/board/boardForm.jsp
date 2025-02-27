@@ -29,8 +29,10 @@
 	<div class="row col-md-8 offset-md-2">
 		
 		<!-- 컨텐츠 내용 작성 -->
-		<h1>게시글 추가 페이지입니다</h1>
-		<form action="./add" method="post">
+		<h1>${kind} 페이지입니다</h1>
+		<form action="" method="post">
+		
+			<input type="hidden" name="boardNum" value="${dto.boardNum }">
 			
 		  <div class="input-group">
 			  <span class="input-group-text">제목</span>
@@ -45,8 +47,7 @@
 		  <!-- 세션의 유저 아이디를 같이 보냄 -->
 		  <input type="hidden" name="userName" value="${user.userName }">
 		  		  
-		  <button type="submit" class="btn btn-primary">작성 완료</button>
-		  
+		  <button type="submit" class="btn btn-primary">진행하기</button>
 		</form>
 		
 		

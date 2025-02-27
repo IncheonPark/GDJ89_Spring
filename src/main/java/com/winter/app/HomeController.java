@@ -32,8 +32,6 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		
 		robot.attack();
-
-		
 		
 		return "index";
 		

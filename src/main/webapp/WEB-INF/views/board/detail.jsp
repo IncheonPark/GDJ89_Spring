@@ -31,7 +31,7 @@
 	<div class="row col-md-8 offset-md-2">
 		
 		<!-- 컨텐츠 내용 작성 -->
-		<h1>디테일 페이지입니다.</h1>
+		<h1>상세 페이지입니다</h1>
 		
 		<table class="table">
 		  <thead>
@@ -62,8 +62,9 @@
 		</div>
 		
 		<c:if test="${user.userName eq dto.userName }">
-		<a href="./update?boardNum=${dto.boardNum}" class="btn btn-outline-info">글 수정</a>
-		<a href="./delete?boardNum=${dto.boardNum}" class="btn btn-outline-danger">글 삭제</a>
+		<a href="./update?boardNum=${dto.boardNum}" class="btn btn-outline-info">수정</a>
+		<a href="./delete?boardNum=${dto.boardNum}" class="btn btn-outline-danger">삭제</a>
+		<a href="./reply?boardNum=${dto.boardNum}" class="btn btn-outline-primary">답글</a>
 		</c:if>
 		
 	</div>

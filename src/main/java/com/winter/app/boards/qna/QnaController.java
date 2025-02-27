@@ -1,15 +1,20 @@
-package com.winter.app.qna;
+package com.winter.app.boards.qna;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.winter.app.boards.BoardDTO;
 import com.winter.app.pages.Pager;
+import com.winter.app.users.UserDTO;
 
 @Controller
 @RequestMapping(value="/qna/*")
@@ -20,37 +25,51 @@ public class QnaController {
 	
 	
 	//
+	@ModelAttribute("kind")
+	public String getKind() {
+		
+		return "QnA";
+	}
+	
+	
+	//
 	@RequestMapping(value="list", method=RequestMethod.GET)
-	public void getList(Model model, Pager pager) throws Exception {
+	public String getList(Model model, Pager pager) throws Exception {
 		
 		System.out.println("QnA 컨트롤러 겟리스트");
 		
-		List<QnaDTO> list = service.getList(pager);
+		List<BoardDTO> list = service.getList(pager);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pager", pager);
+		
+		return "board/list";
 		
 	}
 	
 	
 	//
 	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public void getDetail(QnaDTO dto1, Model model) throws Exception {
+	public String getDetail(QnaDTO dto1, Model model) throws Exception {
 		
 		System.out.println("QnA 컨트롤러 겟디테일");
 		
-		QnaDTO dto = service.getDetail(dto1);
+		QnaDTO dto = (QnaDTO)service.getDetail(dto1);
 		
 		model.addAttribute("dto", dto);
+		
+		return "board/detail";
 		
 	}
 	
 	
 	//
 	@RequestMapping(value="add", method=RequestMethod.GET)
-	public void addGet() throws Exception {
+	public String addGet() throws Exception {
 		
 		System.out.println("QnA 컨트롤러 애드 겟");
+		
+		return "board/boardForm";
 		
 	}
 	
@@ -79,11 +98,11 @@ public class QnaController {
 		
 		System.out.println("QnA 컨트롤러 업데이트 겟");
 		
-		QnaDTO dto = service.getDetail(dto1);
+		QnaDTO dto = (QnaDTO)service.getDetail(dto1);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("dto", dto);
-		mv.setViewName("qna/update");
+		mv.setViewName("board/boardForm");
 		
 		return mv;
 		
@@ -127,6 +146,34 @@ public class QnaController {
 		mv.setViewName("commons/result");
 		
 		return mv;
+		
+	}
+	
+	
+	//
+	@RequestMapping(value="reply", method=RequestMethod.GET)
+	public String reply(BoardDTO dto) throws Exception {
+		
+		System.out.println("QnA 컨트롤러 reply GET");
+		
+		return "board/boardForm";
+		
+	}
+	
+	
+	//
+	@RequestMapping(value="reply", method=RequestMethod.POST)
+	public String reply(QnaDTO boardDTO, HttpSession session) throws Exception {
+		
+		System.out.println("QnA 컨트롤러 reply POST");
+		
+		UserDTO userDTO = (UserDTO) session.getAttribute("user");
+		
+		boardDTO.setUserName(userDTO.getUserName());
+		
+		int result = service.reply(boardDTO);
+		
+		return "redirect:./list";
 		
 	}
 	

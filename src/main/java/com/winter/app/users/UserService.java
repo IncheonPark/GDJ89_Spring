@@ -3,7 +3,7 @@ package com.winter.app.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.winter.app.notice.NoticeDTO;
+import com.winter.app.boards.notice.NoticeDTO;
 
 @Service
 public class UserService {

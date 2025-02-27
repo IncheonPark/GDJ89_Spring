@@ -1,22 +1,23 @@
-package com.winter.app.notice;
+package com.winter.app.boards;
 
 import java.sql.Date;
 
-public class NoticeDTO {
+public class BoardDTO {
 	
-	private long boardNum;
+	// 만약 Null을 받을 때 long이라면 400에러코드를 발생시킨다
+	private Long boardNum;
 	private String boardTitle;
 	private Date boardDate;
 	private String boardContent;
-	private long boardHit;
+	private Long boardHit;
 	private String userName;
 	
 	
 	
-	public long getBoardNum() {
+	public Long getBoardNum() {
 		return boardNum;
 	}
-	public void setBoardNum(long boardNum) {
+	public void setBoardNum(Long boardNum) {
 		this.boardNum = boardNum;
 	}
 	public String getBoardTitle() {
@@ -37,10 +38,10 @@ public class NoticeDTO {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public long getBoardHit() {
+	public Long getBoardHit() {
 		return boardHit;
 	}
-	public void setBoardHit(long boardHit) {
+	public void setBoardHit(Long boardHit) {
 		this.boardHit = boardHit;
 	}
 	public String getUserName() {
