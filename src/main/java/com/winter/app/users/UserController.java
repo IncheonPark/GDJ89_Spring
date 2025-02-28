@@ -3,6 +3,7 @@ package com.winter.app.users;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.winter.app.boards.notice.NoticeDTO;
@@ -65,6 +67,14 @@ public class UserController {
 		
 		System.out.println("유저 컨트롤러, detail");
 		
+		// 1. Session에 user정보
+		
+		
+		// 2. 유저 정보를 다시 조회해서 jsp로 보내는 방법
+		
+		
+		
+		
 		ModelAndView mv = new ModelAndView();
 		dto = service.getDetail(dto);
 		
@@ -87,34 +97,16 @@ public class UserController {
 	
 	
 	@RequestMapping(value="join", method = RequestMethod.POST)
-	public ModelAndView joinP(UserDTO dto) throws Exception {
-		System.out.println("User 컨트롤러, joinP");
+	public String join(UserDTO userDTO, MultipartFile profile, HttpSession session)throws Exception{
+		System.out.println(profile.getContentType());
+		System.out.println(profile.getName());
+		System.out.println(profile.getOriginalFilename());
+		System.out.println(profile.getSize());
+		System.out.println(profile.isEmpty());
+		System.out.println(session.getServletContext());
 		
-		ModelAndView mv = new ModelAndView();
-		//유저네임 중복 검증
-		int result1 = service.userNameCheck(dto);
-		System.out.println("result1 : " + result1);
-		if (result1 > 0) {
-			
-			mv.addObject("message", "아이디가 중복되었습니다");
-			mv.setViewName("./users/join");
-			
-			return mv;
-			
-		} else {
-			// 가입 처리
-			int result2 = service.join(dto);
-			if (result2 > 0 ) {
-				System.out.println("가입 성공");
-			} else {
-				System.out.println("가입 실패");
-			}
-			
-			mv.setViewName("./users/login");
-			return mv;
-		}
-				
-		
+		int result = service.join(userDTO, profile, session.getServletContext());
+		return "redirect:/";
 	}
 	
 	
@@ -138,9 +130,54 @@ public class UserController {
 		mv.addObject("path", "/");
 		mv.setViewName("commons/result");
 		
-		return mv;
-		
+		return mv;		
 	}
+	
+	
+	@RequestMapping(value="update", method=RequestMethod.GET)
+	public ModelAndView updateG(HttpSession session){
+		
+		System.out.println("유저 컨트롤러 업데이트");
+		
+		UserDTO dto = new UserDTO();
+		Object obj = session.getAttribute("user");
+		dto = (UserDTO)obj;
+		dto = service.getDetail(dto);
+		
+		ModelAndView mv = new ModelAndView();		
+		mv.addObject("dto", dto);
+		mv.setViewName("./users/update");
+		
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public ModelAndView updateP(HttpSession session) throws Exception {
+		
+		System.out.println("유저 컨트롤러 업데이트");
+		
+		UserDTO dto = new UserDTO();
+		Object obj = session.getAttribute("user");
+		dto = (UserDTO)obj;
+		
+		int result = service.update(dto);
+		if(result > 0) {
+			System.out.println("수정 성공");
+		} else {
+			System.out.println("수정 실패");
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("result", "회원 수정 완료");
+		mv.addObject("path", "./detail?userName="+dto.getUserName());
+		mv.setViewName("commons/result");
+		
+		return mv;		
+	} 
+	
+	
+	
 	
 	
 }

@@ -42,8 +42,17 @@
 			      <td>${dto.email }</td>
 			    </tr>
 		    
-		  </tbody>
+		  </tbody>		  
 		</table>
+		
+		<%-- <div>
+			<img alt="" src="/resources/images/profiles/${user.userFileDTO.fileName not empty ?user.userFileDTO.fileName:'default.jpg'}">
+		</div> --%>
+		
+		<div>
+			<a href="./update" class="btn btn-info">프로필 수정</a>
+		</div>
+		
 		<a href="./update?userName=${dto.userName}" class="btn btn-outline-info">정보 수정</a>
 		<a href="./delete?userName=${dto.userName}" class="btn btn-outline-danger">회원 탈퇴</a>
 		

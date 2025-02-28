@@ -22,8 +22,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	private Robot robot;
+	
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -31,7 +30,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		robot.attack();
+		
 		
 		return "index";
 		

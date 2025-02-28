@@ -23,27 +23,20 @@
 	<div class="row col-md-8 offset-md-2">
 		
 		<!-- 컨텐츠 내용 작성 -->
-		<h1>회원가입 페이지입니다</h1>
-		<form action="./join" method="post" enctype="multipart/form-data">
-		  <div class="mb-3 col-3">
-		    <label for="userName" class="form-label">아이디</label>
-		    <input type="text" class="form-control" id="userName" name="userName" placeholder="아이디 입력">
-		  </div>
-		  <div class="mb-3 col-3">
-		    <label for="password" class="form-label">비밀번호</label>
-		    <input type="text" class="form-control" id="password" name="password" placeholder="비밀번호 입력">
-		  </div>
+		<h1>정보수정 페이지입니다</h1>
+		<form action="./update" method="post" enctype="multipart/form-data">
+		  
 		  <div class="mb-3 col-3">
 		    <label for="name" class="form-label">이름</label>
-		    <input type="text" class="form-control" id="name" name="name" placeholder="이름 입력">
+		    <input type="text" class="form-control" id="name" name="name" value="${dto.name}">
 		  </div>
 		  <div class="mb-3 col-3">
 		    <label for="phone" class="form-label">전화번호</label>
-		    <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호 입력">
+		    <input type="text" class="form-control" id="phone" name="phone" value="${dto.phone}">
 		  </div>
 		  <div class="mb-3 col-3">
 		    <label for="email" class="form-label">이메일</label>
-		    <input type="text" class="form-control" id="email" name="email" placeholder="이메일 입력">
+		    <input type="text" class="form-control" id="email" name="email" value="${dto.email}">
 		  </div>
 		  
 		  <div class="mb-3 col-3">
@@ -51,7 +44,7 @@
 		    <input type="file" class="form-control" id="profile" name="profile">
 		  </div>
 		  
-		  <button type="submit" class="btn btn-primary">가입하기</button>
+		  <button type="submit" class="btn btn-primary">수정하기</button>
 		</form>
 		
 		

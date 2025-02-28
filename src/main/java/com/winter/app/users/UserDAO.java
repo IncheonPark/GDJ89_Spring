@@ -13,6 +13,7 @@ public class UserDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
 	//
 	public UserDTO login(UserDTO dto) {
 		
@@ -54,8 +55,31 @@ public class UserDAO {
 		System.out.println("유저 dao 딜리트 ");
 		
 		int result = sqlSession.delete(NAMESPACE + "delete", dto1);
-		return result;
 		
+		return result;
+	}
+	
+	
+	//
+	public int update(UserDTO dto) throws Exception {
+		
+		System.out.println("유저 dao 업데이트");
+		System.out.println("dao dto.getUserName : " + dto.getUserName());
+		
+		int result = sqlSession.update(NAMESPACE + "update", dto);
+		
+		return result;
+	}
+	
+	
+	//
+	public int upload(UserFileDTO userFileDTO) throws Exception {
+		
+		System.out.println("유저 dao upload ");
+		
+		int result = sqlSession.insert(NAMESPACE + "upload", userFileDTO);
+		
+		return result;
 	}
 	
 	
