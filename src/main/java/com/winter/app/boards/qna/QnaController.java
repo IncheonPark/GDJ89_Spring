@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.winter.app.boards.BoardDTO;
@@ -28,7 +29,7 @@ public class QnaController {
 	@ModelAttribute("kind")
 	public String getKind() {
 		
-		return "QnA";
+		return "qna";
 	}
 	
 	
@@ -76,11 +77,11 @@ public class QnaController {
 	
 	//
 	@RequestMapping(value="add", method=RequestMethod.POST)
-	public String addPost(QnaDTO dto1) throws Exception {
+	public String addPost(QnaDTO dto1, HttpSession session, MultipartFile[] attaches) throws Exception {
 		
 		System.out.println("QnA 컨트롤러 애드 포스트");
 		
-		int result = service.add(dto1);
+		int result = service.add(dto1, session, attaches);
 		if(result > 0) {
 			System.out.println("등록 성공");
 		} else {

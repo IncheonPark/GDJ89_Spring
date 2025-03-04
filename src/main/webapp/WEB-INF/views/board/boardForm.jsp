@@ -19,6 +19,9 @@
 	height: 400px;
 }
 
+.files1 {
+	margin-bottom: 25px;
+}
 </style>
 <c:import url="/WEB-INF/views/templates/boot_css.jsp"></c:import>
 </head>
@@ -30,7 +33,7 @@
 		
 		<!-- 컨텐츠 내용 작성 -->
 		<h1>${kind} 페이지입니다</h1>
-		<form action="" method="post">
+		<form action="" method="post" enctype="multipart/form-data">
 		
 			<input type="hidden" name="boardNum" value="${dto.boardNum }">
 			
@@ -42,6 +45,11 @@
 		  <div class="input-group textareaDiv">
 			  <span class="input-group-text">내용</span>
 			  <textarea class="form-control textarea" aria-label="내용" name="boardContent">${dto.boardContent }</textarea>
+		  </div>
+		  
+		  <div id="files" class="files1">
+		  
+			<button type="button" id="addFile" class="btn btn-info">파일 추가</button>
 		  </div>
 		  
 		  <!-- 세션의 유저 아이디를 같이 보냄 -->
@@ -58,5 +66,6 @@
 
 <c:import url="/WEB-INF/views/templates/layout_footer.jsp"></c:import>
 <c:import url="/WEB-INF/views/templates/boot_js.jsp"></c:import>
+<script src="/resources/js/files/fileManager.js"></script>
 </body>
 </html>

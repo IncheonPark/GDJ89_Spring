@@ -27,16 +27,50 @@
 		) 
 		WHERE RN BETWEEN #{startNum} AND #{endNum}
   	</select>
-  	
-  	<select id="getDetail" parameterType="QnaDTO" resultType="QnaDTO">
-  		SELECT * FROM QNA WHERE BOARDNUM=#{boardNum}
+  	  	
+  	<select id="getDetail" parameterType="QnaDTO" resultMap="getDetailResult">
+  		SELECT *
+		FROM QNA Q
+			LEFT OUTER JOIN
+			QNAFILES QF
+			USING(BOARDNUM)
+		WHERE BOARDNUM = #{boardNum}
   	</select>
   	
+  	<resultMap type="QnaDTO" id="getDetailResult">
+  		<id column="BOARDNUM" property="boardNum"/>
+  		<result column="BOARDTITLE" property="boardTitle"/>
+  		<result column="BOARDDATE" property="boardDate"/>
+  		<result column="BOARDCONTENTS" property="boardContents"/>
+  		<result column="BOARDHIT" property="boardHit"/>
+  		<result column="USERNAME" property="userName"/>
+  		
+  		<!-- 1:N ofType="제네릭 타입명" 명시 -->
+  		<collection property="boardFileDTOs" javaType="List" ofType="BoardFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="OLDNAME" property="oldName"/>
+  			<!-- 보드넘 생략, 위에 있기 때문에 -->
+  		</collection>
+  		
+  	</resultMap>
+  	  	  	
   	<insert id="add" parameterType="QnaDTO">
-  		INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, #{boardTitle}, SYSDATE, #{boardContent},  
-  		0, #{userName}, QNA_SEQ.CURRVAL, 0, 0)
+		<!-- 메인쿼리 실행 전(before)에 selectKey의 결과물인 Long타입의 값을 QnaDTO의 board에 대입한다 -->	  	
+  		<selectKey order="BEFORE" keyProperty="boardNum" resultType="Long">
+  			SELECT QNA_SEQ.NEXTVAL FROM DUAL 
+  		</selectKey>
+  	
+  		<!-- 시퀀스를 실행하는 것이 아니라, boardNum의 값을 가져옴. 여기서 하면 두번하는 것이므로-->  		
+  		INSERT INTO QNA VALUES (#{boardNum}, #{boardTitle}, SYSDATE, #{boardContent},
+  		0, #{userName}, 0, 0, 0)
   	</insert>
   	
+  	<insert id="addFile" parameterType="BoardFileDTO">
+  		INSERT INTO QNAFILES (FILENUM, FILENAME, OLDNAME, BOARDNUM) 
+  		VALUES(FILES_SEQ.NEXTVAL, #{fileName}, #{oldName}, #{boardNum})
+  	</insert>
+  	  	
   	<update id="update" parameterType="QnaDTO">
   		UPDATE QNA SET BOARDTITLE=#{boardTitle}, BOARDCONTENT=#{boardContent}  
 		WHERE BOARDNUM=#{boardNum}

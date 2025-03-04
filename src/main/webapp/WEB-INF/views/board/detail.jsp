@@ -56,6 +56,12 @@
 		  </tbody>
 		</table>
 		
+		<div>
+			<c:forEach items="${dto.boardFileDTOs }" var="f">
+				<a href="/resources/images/${kind}/${f.fileName}">${f.oldName}</a>
+			</c:forEach>
+		</div>
+		
 		<div class="input-group textareaDiv">
 		  <span class="input-group-text">내용</span>
 		  <textarea class="form-control textarea" aria-label="내용" readonly>${dto.boardContent }</textarea>

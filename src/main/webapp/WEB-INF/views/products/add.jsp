@@ -36,6 +36,8 @@
 		    <input type="text" class="form-control addInput" id="상세 설명" name="productDetail" >
 		  </div>
 		  
+		  	  
+		  
 		  <button type="button" class="btn btn-primary" id="sub1">상품 등록</button>
 		</form>
 		
