@@ -50,13 +50,19 @@ addFile.addEventListener("click", function(){
         files.append(div1);
         
         count++;
-                
+        
+        inputX.addEventListener("click", function(){
+            label1.parentNode.remove();
+            count--;
+        })
+
     } else {
-        alert("파일 추가는 5개까지만 가능합니다");
-        let dis = document.createAttribute("disabled");
-        addFile.setAttributeNode(dis);
+        alert("파일 추가는 5개까지만 가능합니다");       
+        
     }
 
     
+    
 
 })
+
