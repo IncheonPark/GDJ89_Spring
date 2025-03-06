@@ -83,5 +83,18 @@ public class UserDAO {
 	}
 	
 	
+	//
+	public int addCart() {
+		
+		return 0;
+	}
+	
+	
+	//
+	
+	
+	
+	
+	
 
 }

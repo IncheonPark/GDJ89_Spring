@@ -173,8 +173,8 @@ public class UserController {
 		mv.addObject("path", "./detail?userName="+dto.getUserName());
 		mv.setViewName("commons/result");
 		
-		return mv;		
-	} 
+		return mv;
+	}
 	
 	
 	

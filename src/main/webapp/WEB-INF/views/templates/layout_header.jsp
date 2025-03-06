@@ -50,6 +50,9 @@
 			        <li class="nav-item">
 			        	<a class="nav-link" href="/users/detail?userName=${user.userName}">마이페이지</a>
 			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link" href="/users/carts"><i style="font-size: 1.1rem;" class="bi bi-cart4"></i></a>
+			        </li>
 			        </c:if>
 			        
 			        <li class="nav-item">
