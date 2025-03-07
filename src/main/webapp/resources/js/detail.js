@@ -1,44 +1,56 @@
+//수정 버튼을 클릭 했을 때 콘솔에 출력
+//form method의 값을 콘솔에 출력력
+//삭제 버튼을 클릭 했을 때 콘솔에 출력
+//form action의 주소값을 콘솔에 출력
+const up = document.getElementById("up");
+const del = document.getElementById("del");
+const frm = document.getElementById("frm");
+const addCart= document.getElementById("addCart")
 
-// 수정 버튼을 클릭했을 때 콘솔에 출력
-// form method의 값을 콘솔에 출력
+addCart.addEventListener("click", ()=>{
+    let num = addCart.getAttribute("data-product-num")
 
-// 삭제 버튼을 클릭했을 때 콘솔에 출력
-// form action의 주소값을 콘솔에 출력
+    let s = `hello ${num}` 
+    // ` ` 을 쓰면 문자와 변수를 +로 합친 것과 같다
+    // JS에서 ${}는 EL이 아니고, 선언된 변수를 갖다가 쓴다는 뜻이다
+    fetch(`../users/addCart?productNum=${num}`)
+    .then(res => res.text())
+    .then(res => {
+        if(res.trim()=="1"){ //parseInt("1"), "1"+1
+            let r = confirm("장바구니로 이동?")
+            if(r){
+                location.href='../users/carts';
+            }
+        } else {
+            alert('장바구니 등록 실패')
+        }
 
-
-const updateBtn = document.getElementById("updateBtn");
-const deleteBtn = document.getElementById("deleteBtn");
-const form1 = document.getElementById("form1");
-const proceed = document.getElementById("proceed");
-
-updateBtn.addEventListener("click", function(){
-    console.log("updateBtn");
-    console.log(form1.action); //url
-    console.log(form1.getAttribute("action")); //uri
-    console.log(form1.method); //get
-    console.log(form1.getAttribute("method")); //null
-    form1.action="./update";    
-    
+    }) .catch(r => {
+        alert('장바구니 등록 실패')
+    })
 })
 
-deleteBtn.addEventListener("click", function(){
-    console.log("deleteBtn");
-    console.log(form1.action);
-    console.log(form1.getAttribute("action"));
-    console.log(form1.method); //get
-    console.log(form1.getAttribute("method")); //null
-    form1.action="./delete";
-    form1.method="post";
-    console.log(form1.method);    
+try {
+    up.addEventListener("click", function(){
+        console.log(frm.method) //GET
+        console.log(frm.getAttribute("method"))//null
+        console.log("수정")
+        frm.action="./update";
+        frm.submit();
+    })
+} catch (error) {
     
-})
+}
 
-proceed.addEventListener("click", function(){ 
-    
-    let check = confirm("정말 진행하시겠습니까?");
-    if(check) {
-        form1.submit();
+del.addEventListener("click", function(){
+    console.log(frm.action); //url
+    console.log(frm.getAttribute("action"));//uri
+    console.log("삭제")
+
+    let check = confirm("정말 삭제???");
+    if(check){
+        frm.action="./delete";
+        frm.method="POST";
+        frm.submit();
     }
-
 })
-

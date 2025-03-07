@@ -49,6 +49,11 @@ public class UserService {
 		
 	}
 	
+	//
+	public UserDTO check(UserDTO userDTO) throws Exception{
+		return dao.getDetail(userDTO);
+	}
+	
 	
 	// join
 	public int join(UserDTO userDTO, MultipartFile profile, ServletContext context)throws Exception{

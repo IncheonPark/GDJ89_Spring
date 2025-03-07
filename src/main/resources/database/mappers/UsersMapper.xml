@@ -18,6 +18,12 @@
   		SELECT COUNT(USERNAME) FROM USERS WHERE USERNAME=#{userName}
   	</select>	
   	
+  	<!-- 파일 저장 -->
+  	<insert id="upload" parameterType="UserFileDTO">
+  		INSERT INTO PROFILE (USERNAME, FILENAME, OLDNAME)
+  		VALUES (#{userName}, #{fileName}, #{oldName})
+  	</insert>
+  	
   	<insert id="join" parameterType="com.winter.app.users.UserDTO">
   		INSERT INTO USERS VALUES 
   		(#{userName}, #{password}, #{name}, #{phone}, #{email})  		
@@ -47,9 +53,9 @@
 	  		
 	  		<result column="FILENAME" property="fileName"/>
 	  		<result column="OLDNAME" property="oldName"/>
-	  	</association>
-  	
+	  	</association>  	
   	</resultMap>
+  	
   	
   	<select id="login" parameterType="UserDTO" resultType="UserDTO">
   		SELECT * FROM USERS WHERE USERNAME=#{userName} AND PASSWORD=#{password}
@@ -59,36 +65,34 @@
   		DELETE USERS WHERE USERNAME=#{userName}
   	</delete>
   	
+  	
   	<update id="update" parameterType="UserDTO">
   		UPDATE USERS SET NAME=#{name}, PHONE=#{phone}, EMAIL=#{email} WHERE USERNAME=#{userName}
   	</update>
   	
-  	<!-- 파일 저장 -->
-  	<insert id="upload" parameterType="UserFileDTO">
-  		INSERT INTO PROFILE (USERNAME, FILENAME, OLDNAME)
-  		VALUES (#{userName}, #{fileName}, #{oldName})
-  	</insert>
+  	<update id="updateFile" parameterType="UserFileDTO">
+  		
+  	</update> 	
+  	
   	
   	<insert id="addCart" parameterType="Map">
   		INSERT INTO CARTS (USERNAME, PRODUCTNUM) 
   		VALUES (#{user.userName}, #{product.productNum})  		
   	</insert>
   	
-  	<select id="getCartList" parameterType="UserDTO" resultType="ProductDTO">
+  	<select id="getCartList" parameterType="Map" resultType="ProductDTO">
   		SELECT * FROM (
 	  		SELECT ROWNUM R, C.*
 	  		FROM (
-		  		SELECT PRODUCTNUM, PRODUCTNAME, PRODUCTRATE, PRODUCTDATE
-		  		FROM PRODUCTS
-		  		WHERE PRODUCTNUM
-		  			IN (SELECT PRODUCTNUM FROM CARTS WHERE USERNAME=#{user.userName})
-		  		ORDER BY PRODUCTNUM DESC  		
+			  		SELECT PRODUCTNUM, PRODUCTNAME, PRODUCTRATE, PRODUCTDATE
+			  		FROM PRODUCTS
+			  		WHERE PRODUCTNUM
+			  			IN (SELECT PRODUCTNUM FROM CARTS WHERE USERNAME=#{user.userName})
+			  		ORDER BY PRODUCTNUM DESC  		
 	  		)C  		
-  		)
-  		WHERE R BETWEEN #{pager.startNum} AND #{pager.endNum}
+  		) WHERE R BETWEEN #{pager.startNum} AND #{pager.endNum}
   		
-  		
-  		
+  		  		
   		<!-- SELECT PRODUCTNAME, PRODUCTRATE, PRODUCTDATE
   		FROM CARTS C
   			NATURAL JOIN

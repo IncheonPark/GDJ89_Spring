@@ -19,6 +19,8 @@
 		<typeAlias type="com.winter.app.boards.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.winter.app.boards.BoardFileDTO" alias="BoardFileDTO"/>
 		
+		<typeAlias type="com.winter.app.accounts.AccountDTO" alias="AccountDTO"/>
+		
 		<typeAlias type="com.winter.app.pages.Pager" alias="Pager"/>
 		
 		<typeAlias type="java.util.List" alias="List"/>

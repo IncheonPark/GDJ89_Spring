@@ -19,43 +19,24 @@
 <body class="d-flex flex-column min-vh-100">
 <c:import url="/WEB-INF/views/templates/layout_header.jsp"></c:import>
 
-<div class="container-fluid my-5">
+<div class="continer-fluid my-5">
 	<div class="row col-md-8 offset-md-2">
-		
-		<!-- 컨텐츠 내용 작성 -->
-		<h1>디테일 페이지입니다.</h1>
+		<!-- contents 내용 작성 -->
+		<h1>Product Detail Page</h1>
+
+		<h3>${dto.productName}</h3>
+		<h3>${dto.productRate}</h3>
 
 		<div>
-			<form action="/test" id=form1>
+			<form id="frm" action="/test">
 				<input type="hidden" name="productNum" value="${dto.productNum}">
-				<button type="button" id="updateBtn">수정</button>
-				<button type="button" id="deleteBtn">삭제</button>
-				<button type="button" id="proceed">진행 버튼</button>
+				<button type="button" id="up">수정</button>
+				<button type="button" id="del">삭제</button>
 			</form>
+			<button type="button" id="addCart" data-product-num="${dto.productNum}">장바구니</button>
+
 		</div>
-		
-		<table class="table">
-		  <thead>
-		    <tr>
-		      <th scope="col">상품번호</th>
-		      <th scope="col">제품명</th>
-		      <th scope="col">상품이율</th>
-		      
-		    </tr>
-		  </thead>
-		  <tbody>
-		  	
-			    <tr>
-			      <th scope="row">${dto.productNum }</th>
-			      <td>${dto.productName }</td>
-			      <td>${dto.productRate }</td>
-			    </tr>
-		    
-		  </tbody>
-		</table>
-		<a href="./update?productNum=${dto.productNum}" class="btn btn-outline-info">상품 수정</a>
-		<a href="./delete?productNum=${dto.productNum}" class="btn btn-outline-danger">상품 삭제</a>
-		
+
 	</div>
 </div>
 

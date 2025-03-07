@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL문 끝에 ; 붙이지 말기 -->
+  
+  <!-- namespace값은 다른 mapper의 namespace와 중복되면 안된다 -->
+  <!-- namespace값은 또한 비어 있으면 안된다. 서버 시작 시 익셉션 발생한다. -->
+  <!-- DAO의 클래스명을 주로 사용 -->
+  <mapper namespace="com.winter.app.accounts.AccountDAO">
+  	<!-- DAO의 메서드명을 ID로 주로 사용 -->  	
+  	<!-- ? 값 #{getter의 이름 또는 DTO가 아닐 때는 변수명으로 한다} -->
+  	
+  	<select id="sample1"></select>
+  	
+  	<insert id="add" parameterType="List">
+  		INSERT ALL
+  		
+  		<foreach collection="list" item="item" open="" separator="" close="">
+  		INSERT INTO ACCOUNTS (ACCOUNTNUM, USERNAME, PRODUCTNUM, ACCOUNTBALANCE, ACCOUNTDATE)
+  		VALUES 
+  		(#{accountNum}, #{userName}, #{productNum}, 0, SYSDATE)
+  		</foreach>
+  		
+  		SELECT * FROM DUAL
+  	</insert>
+  	
+  	<update id="sample3"></update>
+  	
+  	<delete id="sample4"></delete>
+  	
+  	
+  	
+  	
+  	
+  </mapper>

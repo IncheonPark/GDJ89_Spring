@@ -47,11 +47,12 @@
 			  <textarea class="form-control textarea" aria-label="내용" name="boardContent">${dto.boardContent }</textarea>
 		  </div>
 		  
-		  <div id="files" class="files1">
-		  
+		  <div id="files" class="files1 mb-3" data-files-size="${dto.boardFileDTOs.size()}">
+		  	<div class="mb-3">		  
 			<button type="button" id="addFile" class="btn btn-info">파일 추가</button>
+			</div>
 		  </div>
-		  
+		  		  
 		  <!-- 세션의 유저 아이디를 같이 보냄 -->
 		  <input type="hidden" name="userName" value="${user.userName }">
 		  		  

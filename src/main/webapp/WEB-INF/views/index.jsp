@@ -42,9 +42,37 @@
 	</div>
 </div>
 
-
+<button id="btn">CLICK</button>
 
 <c:import url="/WEB-INF/views/templates/layout_footer.jsp"></c:import>
 <c:import url="/WEB-INF/views/templates/boot_js.jsp"></c:import>
+
+<script>
+	const btn = document.getElementById("btn");
+	btn.addEventListener("click", function(){
+		console.log("start")
+
+		let num = 1;
+
+		fetch("./notice/list")
+		.then(result => {
+			return result.text(); //응답 데이터가 text일 때 꺼내는 메서드
+			
+			//result.json(); //응답 데이터가 json 형태일 때 꺼내는 메서드
+		})
+		.then(result => {
+			console.log(result);
+			num=num+1;
+		})
+		.catch((e)=>{
+
+		})
+		.finally(()=>{
+
+		});
+		console.log(num);
+	})
+</script>
+
 </body>
 </html>

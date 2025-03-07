@@ -25,6 +25,28 @@ public class UserController {
 	
 	
 	
+	// /users/check
+	// check
+	@RequestMapping(value="check", method=RequestMethod.GET)
+	public String check(UserDTO userDTO, Model model) throws Exception {
+		System.out.println("ID 중복 체크");
+		System.out.println(userDTO.getUserName());
+		
+		userDTO = service.check(userDTO);
+		//userDTO == null이면 가입 가능
+		//userDTO != null이면 가입 불가
+		int result = 0; //중복 O
+		if(userDTO == null) {
+			result = 1; //중복 X
+		}
+		
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+	}
+	
+	
+	
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public void loginG() throws Exception {
 		
