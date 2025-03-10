@@ -97,6 +97,16 @@ public class QnaDAO implements BoardDAO {
 		return session.delete(NAMESPACE+"fileDelete", boardFileDTO);
 	}
 	
+	//
+	public int fileDeleteAll(BoardDTO boardDTO) throws Exception {
+		
+		return session.delete(NAMESPACE+"fileDeleteAll", boardDTO);
+	}
+	
+	
+	
+	
+	
 	
 
 }

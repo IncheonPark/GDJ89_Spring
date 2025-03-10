@@ -103,5 +103,9 @@
   		DELETE QNAFILES WHERE FILENUM=#{fileNum}
   	</delete> 	
   	
+  	<!-- 게시글(board)이 지워질 때 자식 file들을 모두 삭제한다 -->
+  	<delete id="fileDeleteAll" parameterType="BoardDTO">
+   		DELETE QNAFILES WHERE BOARDNUM=#{boardNum}
+   	</delete>
   	
   </mapper>

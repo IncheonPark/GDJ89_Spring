@@ -88,11 +88,28 @@ public class QnaService {
 	}
 	
 	//
-	public int delete(BoardDTO dto1) throws Exception {
+	public int delete(BoardDTO boardDTO, HttpSession session) throws Exception {
 		
 		System.out.println("QnA 서비스 딜리트 ");
 		
-		int result = dao.delete(dto1);
+		// 1. 파일들의 정보를 조회
+		boardDTO = dao.getDetail(boardDTO);
+		
+		// - 모든 자식 파일(file) 삭제
+		int result = dao.fileDeleteAll(boardDTO);
+		
+		// - 게시글(board) 삭제
+		result = dao.delete(boardDTO);
+		
+		// 2. HDD 삭제 반복 (여러개일 때)
+		if (result > 0) {
+			String path = session.getServletContext().getRealPath("/resources/images/qna/");
+			System.out.println(path);
+			
+			for(BoardFileDTO boardFileDTO : ((QnaDTO)boardDTO).getBoardFileDTOs())
+			fileManager.fileDelete(path, boardFileDTO.getFileName());
+		}
+		
 		return result;
 		
 	}
@@ -163,7 +180,11 @@ public class QnaService {
 		return result;
 	}
 	
-	
+	//
+	public BoardFileDTO getFileDetail(BoardFileDTO boardFileDTO) throws Exception {
+				
+		return dao.getFileDetail(boardFileDTO);
+	}
 	
 	
 	

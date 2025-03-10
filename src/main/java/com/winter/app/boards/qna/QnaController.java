@@ -113,7 +113,7 @@ public class QnaController {
 	
 	//
 	@RequestMapping(value="update", method=RequestMethod.POST)
-	public String updatePost(QnaDTO dto1) throws Exception {
+	public String updatePost(QnaDTO dto1, MultipartFile[] attaches, HttpSession session) throws Exception {
 		
 		System.out.println("QnA 컨트롤러 업데이트 포스트");
 		
@@ -131,11 +131,11 @@ public class QnaController {
 	
 	//
 	@RequestMapping(value="delete", method=RequestMethod.GET)
-	public ModelAndView delete(QnaDTO dto1) throws Exception {
+	public ModelAndView delete(QnaDTO dto1, HttpSession session) throws Exception {
 		
 		System.out.println("QnA 컨트롤러 딜리트");
 		
-		int result = service.delete(dto1);
+		int result = service.delete(dto1, session);
 		if(result > 0) {
 			System.out.println("삭제 성공");
 		} else {
@@ -187,6 +187,17 @@ public class QnaController {
 		model.addAttribute("result", result);
 		return "commons/ajaxResult";
 	}
+	
+	@RequestMapping(value="fileDown", method=RequestMethod.GET)
+	public String fileDown(BoardFileDTO boardFileDTO, Model model) throws Exception {
+		boardFileDTO = service.getFileDetail(boardFileDTO);
+		model.addAttribute("file", boardFileDTO);
+		
+		return "fileDownView";
+	}
+	
+	
+	
 	
 	
 	

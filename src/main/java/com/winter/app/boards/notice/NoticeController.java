@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.winter.app.boards.BoardDTO;
 import com.winter.app.pages.Pager;
+import com.winter.app.users.UserDTO;
 
 @Controller
 @RequestMapping(value="/notice/*")
@@ -81,11 +82,14 @@ public class NoticeController {
 	
 	//
 	@RequestMapping(value="add", method=RequestMethod.POST)
-	public String addPost(NoticeDTO dto1, HttpSession session, MultipartFile[] attaches) throws Exception {
+	public String addPost(NoticeDTO boardDTO, HttpSession session, MultipartFile[] attaches) throws Exception {
 		
 		System.out.println("노티스 컨트롤러 애드 포스트");
 		
-		int result = service.add(dto1, session, attaches);
+		UserDTO userDTO = (UserDTO)session.getAttribute("user");
+		boardDTO.setUserName(userDTO.getUserName());
+		
+		int result = service.add(boardDTO, session, attaches);
 		if(result > 0) {
 			System.out.println("등록 성공");
 		} else {
