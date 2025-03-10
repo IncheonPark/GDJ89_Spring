@@ -47,6 +47,15 @@
 			  <textarea class="form-control textarea" aria-label="내용" name="boardContent">${dto.boardContent }</textarea>
 		  </div>
 		  
+		  <div class="mb-3">
+		  	<c:forEach items="${dto.boardFileDTOs }" var="f">
+			  <div class="alert alert-primary" role="alert">
+	  			${f.oldName } <button data-file-num="${f.fileNum}" data-kind="${kind}" 
+	  			type="button" class="btn badge text-bg-secondary file-delete">X</button>
+			  </div>		  		
+		  	</c:forEach>
+		  </div>
+		  
 		  <div id="files" class="files1 mb-3" data-files-size="${dto.boardFileDTOs.size()}">
 		  	<div class="mb-3">		  
 			<button type="button" id="addFile" class="btn btn-info">파일 추가</button>
@@ -68,5 +77,6 @@
 <c:import url="/WEB-INF/views/templates/layout_footer.jsp"></c:import>
 <c:import url="/WEB-INF/views/templates/boot_js.jsp"></c:import>
 <script src="/resources/js/files/fileManager.js"></script>
+<script src="/resources/js/files/fileDelete.js"></script>
 </body>
 </html>

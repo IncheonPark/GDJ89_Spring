@@ -1,7 +1,11 @@
 
+
+
 const files = document.getElementById("files");
 const addFile = document.getElementById("addFile");
 let count = files.getAttribute("data-files-size");
+
+
 
 addFile.addEventListener("click", function(){
     
@@ -57,7 +61,7 @@ addFile.addEventListener("click", function(){
         })
 
     } else {
-        alert("파일 추가는 5개까지만 가능합니다");       
+        alert("파일 추가는 5개까지만 가능합니다");
         
     }
 
@@ -65,4 +69,5 @@ addFile.addEventListener("click", function(){
     
 
 })
+
 

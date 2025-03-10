@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.winter.app.boards.BoardDTO;
+import com.winter.app.boards.BoardFileDTO;
 import com.winter.app.pages.Pager;
 import com.winter.app.users.UserDTO;
 
@@ -178,7 +179,14 @@ public class QnaController {
 		
 	}
 	
-	
+	@RequestMapping(value="fileDelete", method=RequestMethod.POST)
+	public String fileDelete(BoardFileDTO boardFileDTO, HttpSession session, Model model) throws Exception {
+		
+		int result = service.fileDelete(boardFileDTO, session);
+		
+		model.addAttribute("result", result);
+		return "commons/ajaxResult";
+	}
 	
 	
 	

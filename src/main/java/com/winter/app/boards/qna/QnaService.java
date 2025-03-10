@@ -144,6 +144,28 @@ public class QnaService {
 		return boardFileDTO;
 	}
 	
+	//
+	public int fileDelete(BoardFileDTO boardFileDTO, HttpSession session) throws Exception {
+		// 1. 정보 조회를 먼저 하고 (먼저 지워버리면 조회를 못하기 때문에)
+		boardFileDTO = dao.getFileDetail(boardFileDTO);
+		
+		// 2. DB 삭제
+		int result = dao.fileDelete(boardFileDTO);		
+		
+		// 3. HDD 삭제
+		if (result > 0) {
+			String path = session.getServletContext().getRealPath("/resources/images/qna/");
+			System.out.println(path);
+			fileManager.fileDelete(path, boardFileDTO.getFileName());
+		}
+		
+		
+		return result;
+	}
+	
+	
+	
+	
 	
 
 }
