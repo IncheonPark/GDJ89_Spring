@@ -179,6 +179,7 @@ public class QnaController {
 		
 	}
 	
+	//
 	@RequestMapping(value="fileDelete", method=RequestMethod.POST)
 	public String fileDelete(BoardFileDTO boardFileDTO, HttpSession session, Model model) throws Exception {
 		
@@ -188,6 +189,7 @@ public class QnaController {
 		return "commons/ajaxResult";
 	}
 	
+	//
 	@RequestMapping(value="fileDown", method=RequestMethod.GET)
 	public String fileDown(BoardFileDTO boardFileDTO, Model model) throws Exception {
 		boardFileDTO = service.getFileDetail(boardFileDTO);
