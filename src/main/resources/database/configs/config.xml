@@ -13,11 +13,14 @@
 		<typeAlias type="com.winter.app.users.UserFileDTO" alias="UserFileDTO"/>
 		
 		<typeAlias type="com.winter.app.products.ProductDTO" alias="ProductDTO"/>
+		<typeAlias type="com.winter.app.products.CommentsDTO" alias="CommentsDTO"/>
 		
 		<typeAlias type="com.winter.app.boards.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.winter.app.boards.qna.QnaDTO" alias="QnaDTO"/>
 		<typeAlias type="com.winter.app.boards.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.winter.app.boards.BoardFileDTO" alias="BoardFileDTO"/>
+		
+		<typeAlias type="com.winter.app.boards.CommentDTO" alias="CommentDTO"/>
 		
 		<typeAlias type="com.winter.app.accounts.AccountDTO" alias="AccountDTO"/>
 		

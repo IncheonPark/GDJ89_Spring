@@ -5,15 +5,20 @@ package com.winter.app.products;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.winter.app.boards.CommentDTO;
 import com.winter.app.pages.Pager;
+import com.winter.app.users.UserDTO;
 
 @Controller
 @RequestMapping(value = "/products/*")
@@ -33,8 +38,7 @@ public class ProductController {
 	 * */
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public void getList(Model model, 
-			Pager pager) throws Exception {
+	public void getList(Model model, Pager pager) throws Exception {
 		//@RequestParam(value="p", defaultValue="1", required=false) Long page) throws Exception {
 		
 		System.out.println("Product List");
@@ -174,6 +178,59 @@ public class ProductController {
 		return mv;
 		
 	}
+	
+	
+	///////////////////
+	// add Comments
+	@RequestMapping(value = "addComments", method = RequestMethod.POST)
+	public String addComments(CommentsDTO commentsDTO, HttpSession session, Model model) throws Exception {
+		UserDTO userDTO = (UserDTO)session.getAttribute("user");
+		commentsDTO.setUserName(userDTO.getUserName());
+		
+		System.out.println(commentsDTO.getUserName());
+		System.out.println(commentsDTO.getBoardContent());
+		System.out.println(commentsDTO.getProductNum());
+		
+		int result = service.addComments(commentsDTO);
+		
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+	}
+	
+	
+	//
+	@RequestMapping(value = "deleteComments", method = RequestMethod.POST)
+	public String deleteComments(CommentsDTO commentsDTO, HttpSession session, Model model) throws Exception {
+		UserDTO userDTO = (UserDTO)session.getAttribute("user");
+		commentsDTO.setUserName(userDTO.getUserName());
+		
+		int result = service.deleteComments(commentsDTO);
+		
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+	}
+	
+	
+	// list Comments
+	@RequestMapping(value = "listComments", method = RequestMethod.GET)
+	public String getCommentsList(CommentsDTO commentsDTO, Pager pager, Model model) throws Exception {
+		
+		System.out.println("comments list");
+		
+		List<CommentsDTO> ar = service.getCommentList(commentsDTO, pager);
+		model.addAttribute("list", ar);
+		//이미 모델에 있으므로 생략. model.addAttribute("pager", pager);
+		
+		return "commons/commentsList";
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	

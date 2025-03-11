@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,29 @@ public class ProductDAO {
 	}
 	
 	
+	//////////////////
+	// Comments
+	public int addComments(CommentsDTO commentsDTO) throws Exception {
+		
+		return sqlSession.insert(NAMESPACE+"addComments", commentsDTO);
+	}
 	
 	
+	//
+	public List<CommentsDTO> getCommentList(Map<String, Object> map) throws Exception {
+				
+		return sqlSession.selectList(NAMESPACE+"getCommentsList", map);
+	}
+	
+	//
+	public Long getCommentsTotalCount(CommentsDTO commentsDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getCommentsTotalCount", commentsDTO); 
+	}
+	
+	//
+	public int deleteComments(CommentsDTO commentsDTO) throws Exception {
+		
+		return sqlSession.delete(NAMESPACE+"deleteComments", commentsDTO);
+	}
 
 }

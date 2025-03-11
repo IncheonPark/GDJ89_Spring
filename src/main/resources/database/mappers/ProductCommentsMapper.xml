@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- SQL문 끝에 ; 붙이지 말기 -->
+  
+  <!-- namespace값은 다른 mapper의 namespace와 중복되면 안된다 -->
+  <!-- namespace값은 또한 비어 있으면 안된다. 서버 시작 시 익셉션 발생한다. -->
+  <!-- DAO의 클래스명을 주로 사용 -->
+  <mapper namespace="com.winter.app.products.ProductDAO">
+  	<!-- DAO의 메서드명을 ID로 주로 사용 -->  	
+  	<!-- ? 값 #{getter의 이름 또는 DTO가 아닐 때는 변수명으로 한다} -->
+  	
+  	<select id="getCommentsTotalCount" parameterType="CommentsDTO" resultType="java.lang.Long">
+  		SELECT COUNT(BOARDNUM) FROM COMMENTS
+  		WHERE PRODUCTNUM=#{productNum}
+  		
+  	</select>
+  	
+  	<select id="getCommentsList" parameterType="Map" resultType="CommentsDTO">
+  		SELECT * FROM (
+  		SELECT ROWNUM R, C.*FROM (
+  		SELECT * FROM COMMENTS WHERE PRODUCTNUM=#{comments.productNum} ORDER BY BOARDNUM DESC
+  		) C
+  		) WHERE R BETWEEN #{pager.startNum} AND #{pager.endNum}
+  		
+  	</select>
+  	
+  	<insert id="addComments" parameterType="CommentsDTO">
+  		INSERT INTO COMMENTS (BOARDNUM, BOARDDATE, BOARDCONTENT, PRODUCTNUM, USERNAME) 
+  		VALUES (COMMENTS_SEQ.NEXTVAL, SYSDATE, #{boardContent}, #{productNum}, #{userName})
+  	</insert>
+  	
+  	<delete id="deleteComments" parameterType="CommentsDTO">
+  		DELETE FROM COMMENTS WHERE BOARDNUM=#{boardNum} AND USERNAME={userName}
+  	</delete>
+  	
+  	<update id="sample3"></update>
+  	
+  	<delete id="sample4"></delete>
+  	
+  	
+  	
+  	
+  	
+  </mapper>

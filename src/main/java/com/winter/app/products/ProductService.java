@@ -1,6 +1,8 @@
 package com.winter.app.products;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class ProductService {
 	
 	
 	
+	
+	
 	// list
 	public List<ProductDTO> getList(Pager pager) throws Exception {
 		System.out.println("서비스 리스트");
@@ -25,9 +29,9 @@ public class ProductService {
 		
 		Long totalCount = dao.totalCount(pager);
 		
-		pager.make(totalCount);
-		
+		pager.make(totalCount);		
 		pager.makeNum();
+		
 		List<ProductDTO> ar = dao.getList(pager);
 		
 		return ar;
@@ -72,6 +76,34 @@ public class ProductService {
 		
 	}
 	
+	//////////////////////////
+	// Comments
+	public int addComments(CommentsDTO commentsDTO) throws Exception {
+		
+		return dao.addComments(commentsDTO);
+	}
+	
+	
+	//
+	public List<CommentsDTO> getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception {
+		
+		Long totalCount = dao.totalCount(pager);
+		pager.make(totalCount);
+		pager.makeNum();		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("comments", commentsDTO);
+		map.put("pager", pager);
+		
+		return dao.getCommentList(map);
+	} 
+	
+	
+	//
+	public int deleteComments(CommentsDTO commentsDTO) throws Exception {
+		
+		return dao.deleteComments(commentsDTO);
+	}
 	
 	
 	

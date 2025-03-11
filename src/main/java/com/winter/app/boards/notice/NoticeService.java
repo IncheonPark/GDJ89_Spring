@@ -56,21 +56,22 @@ public class NoticeService implements BoardService {
 	}
 	
 	//
-	public int add(BoardDTO dto1, HttpSession session, MultipartFile[] attaches) throws Exception {
+	public int add(BoardDTO boardDTO, HttpSession session, MultipartFile[] attaches) throws Exception {
 		
 		System.out.println("노티스 서비스 애드 ");
 		
 		// 1. DB에 Notice정보를 insert
-		int result = dao.add(dto1);
+		int result = dao.add(boardDTO);
 		
 		// 2. HDD에 파일을 저장하고, 그 정보들을 DB에 저장한다
 		for(MultipartFile attach : attaches) {
 			if(attach.isEmpty()) {
 				continue;
 			}
+			
 			BoardFileDTO boardFileDTO = this.fileSave(attach, session.getServletContext());
 			// DB에 저장
-			boardFileDTO.setBoardNum(dto1.getBoardNum()); //Mapper에서 넣어준 boardNum을 get
+			boardFileDTO.setBoardNum(boardDTO.getBoardNum()); //Mapper에서 넣어준 boardNum을 get
 			result = dao.addFile(boardFileDTO);
 			
 		}
@@ -123,11 +124,7 @@ public class NoticeService implements BoardService {
 		return boardFileDTO;
 	}
 
-	@Override
-	public int add(BoardDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	
 	
 	

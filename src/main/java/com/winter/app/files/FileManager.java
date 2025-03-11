@@ -24,7 +24,7 @@ public class FileManager {
 	
 	
 	//
-	public String fileSave(String path, MultipartFile profile)throws Exception{
+	public String fileSave(String path, MultipartFile attach)throws Exception{
 		File file = new File(path);
 		System.out.println("path : "+path);
 		
@@ -42,7 +42,7 @@ public class FileManager {
 		
 		//	2) 객체 사용
 		String f = UUID.randomUUID().toString();
-		f = f+"_"+profile.getOriginalFilename();
+		f = f+"_"+attach.getOriginalFilename();
 		
 		
 		
@@ -52,7 +52,7 @@ public class FileManager {
 //		profile.transferTo(file);
 		
 		//2) FileCopyUtils
-		FileCopyUtils.copy(profile.getBytes(), file);		
+		FileCopyUtils.copy(attach.getBytes(), file);		
 		
 		return f;
 	}
