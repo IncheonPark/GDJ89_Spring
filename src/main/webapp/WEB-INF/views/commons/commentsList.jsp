@@ -23,11 +23,13 @@
 		<c:forEach items="${list }" var="c">
 			<tr>
 				<td>${c.userName }</td>
-				<td>${c.boardContent }</td>
+				<td id="c${c.boardNum}">${c.boardContent }</td>
 				<td>${c.boardDate }</td>
+				<td><button type="button" class="btn btn-outline-info updateComments" 
+					data-bs-toggle="modal" data-bs-target="#exampleModal" data-board-num="${c.boardNum}">수정</button></td>
 				<td><button type="button" class="btn btn-outline-danger deleteComments" 
 				data-board-num="${c.boardNum}">삭제</button></td>
-				<td><button type="button" class="btn btn-outline-info updateComments">수정</button></td>
+				
 			</tr>			
 		</c:forEach>
 	</tbody>

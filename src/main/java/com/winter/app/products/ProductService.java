@@ -1,12 +1,18 @@
 package com.winter.app.products;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.boards.BoardFileDTO;
+import com.winter.app.files.FileManager;
 import com.winter.app.pages.Pager;
 
 @Service
@@ -47,6 +53,18 @@ public class ProductService {
 		return dto;
 		
 	}
+	
+	
+	//
+	public String detailFiles(MultipartFile uploadFile, ServletContext servletContext) throws Exception {
+		String path = servletContext.getRealPath("/resources/images/products/");
+				
+		FileManager fileManager = new FileManager();
+		String fileName = fileManager.fileSave(path, uploadFile);
+		
+		return fileName;
+	}
+	
 	
 	
 	// add
@@ -106,6 +124,11 @@ public class ProductService {
 	}
 	
 	
+	//
+	public int updateComments(CommentsDTO commentsDTO) throws Exception {
+		
+		return dao.updateComments(commentsDTO);
+	}
 	
 	
 

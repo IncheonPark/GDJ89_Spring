@@ -119,5 +119,11 @@ public class ProductDAO {
 		
 		return sqlSession.delete(NAMESPACE+"deleteComments", commentsDTO);
 	}
+	
+	//
+	public int updateComments(CommentsDTO commentsDTO) throws Exception {
+		
+		return sqlSession.delete(NAMESPACE+"updateComments", commentsDTO);
+	}
 
 }

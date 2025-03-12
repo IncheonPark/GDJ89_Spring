@@ -34,8 +34,12 @@
   	</insert>
   	
   	<delete id="deleteComments" parameterType="CommentsDTO">
-  		DELETE FROM COMMENTS WHERE BOARDNUM=#{boardNum} AND USERNAME={userName}
+  		DELETE FROM COMMENTS WHERE BOARDNUM = #{boardNum}
   	</delete>
+  	
+  	<update id="updateComments" parameterType="CommentsDTO">
+  		UPDATE COMMENTS SET BOARDCONTENT = #{boardContent} WHERE BOARDNUM = #{boardNum} 
+  	</update>
   	
   	<update id="sample3"></update>
   	

@@ -11,6 +11,59 @@ const comment = document.getElementById("comment");
 const commentsListResult = document.getElementById("commentsListResult");
 
 const deleteComments = document.getElementsByClassName("deleteComments");
+const updateComments = document.getElementsByClassName("updateComments");
+const modal_change = document.getElementById("modal_change");
+
+
+
+
+
+
+//
+commentsListResult.addEventListener("click", (e) => {
+    if(e.target.classList.contains("updateComments")){
+        let ud = e.target;        
+        let ud_s = ud.parentElement.previousElementSibling.previousElementSibling;
+        let c = ud_s.innerHTML;
+
+        document.getElementById("message-text").value = c;
+        document.getElementById("modal_boardNum").value = ud.getAttribute("data-board-num");
+        
+        
+
+    }
+})
+
+
+// update
+modal_change.addEventListener("click", () => {
+    let md = document.getElementById("message-text").value;
+    let modal_boardNum = document.getElementById("modal_boardNum").value;
+
+    console.log(md);
+
+    let url='./updateComments';
+    //절대경로 또는 상대경로 입력
+    
+    fetch(url, {
+        method : 'POST',
+        headers : {
+            "Content-type" : "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body : `boardNum=${modal_boardNum}&boardContent=${md}`
+    })
+
+    .then(r => r.text())
+    .then(r => {
+        // getList() 전체 조회 안 쓰고 한개만 바꿔보기 
+        document.getElementById(`c${modal_boardNum}`).innerHTML=md;
+
+    })
+    .catch(e => {})
+    
+
+})
+
 
 
 //
@@ -20,16 +73,42 @@ for(let dc of deleteComments) {
     })
 }
 
+//
 commentsListResult.addEventListener("click", (e) => {
     if(e.target.classList.contains('deleteComments')){
-        let boardNum = e.target.getAttribute("data-board-num");
+        let p = e.target.getAttribute("data-board-num");
+
+        console.log("boardNum :" + p);
         
-        console.log("boardNum :" + boardNum);
+        let f = new FormData();
+        f.append("boardNum", p);
+
+        fetch("./deleteComments", {
+            method : "POST",
+            body : f
+        })
+        .then(r => r.text())
+        .then(r => {
+            if(r.trim()*1 > 0) {
+                alert("삭제 성공");
+            } else {
+                alert("삭제 실패");
+            }
+
+        })
+        .catch(e => {
+            alert("이상 발생");
+        }) 
+
+        getList(1)
     }
     
 })
 
 
+
+
+//
 getList();
 
 //
@@ -69,9 +148,12 @@ addComment.addEventListener("click", ()=>{
     console.log("adco");
     console.log(comment.value);
     console.log(addCart.getAttribute('data-product-num'));
-
+    
     f1();
+
+    comment.innerHTML="";
     getList();
+    
     //
     
 

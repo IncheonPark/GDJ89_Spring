@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.winter.app.boards.CommentDTO;
@@ -68,6 +69,24 @@ public class ProductController {
 		return mv;
 				
 	}
+	
+	
+	//
+	@RequestMapping(value = "detailFiles", method = RequestMethod.POST)
+	public String detailFiles(MultipartFile uploadFile, HttpSession session, Model model) throws Exception {
+		
+		System.out.println("fileNameBefore : " + uploadFile.getOriginalFilename());
+		
+		String fileName = service.detailFiles(uploadFile, session.getServletContext());
+		
+		System.out.println("fileNameAfter : " + fileName);
+		
+		fileName = "/resources/images/products/"+fileName;
+		model.addAttribute("result", fileName);
+		
+		return "commons/ajaxResult";
+	}
+	
 	
 	
 	@RequestMapping(value = "add", method = RequestMethod.GET)
@@ -202,10 +221,24 @@ public class ProductController {
 	//
 	@RequestMapping(value = "deleteComments", method = RequestMethod.POST)
 	public String deleteComments(CommentsDTO commentsDTO, HttpSession session, Model model) throws Exception {
-		UserDTO userDTO = (UserDTO)session.getAttribute("user");
-		commentsDTO.setUserName(userDTO.getUserName());
+//		UserDTO userDTO = (UserDTO)session.getAttribute("user");
+//		commentsDTO.setUserName(userDTO.getUserName());
 		
 		int result = service.deleteComments(commentsDTO);
+		
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+	}
+	
+	
+	//
+	@RequestMapping(value = "updateComments", method = RequestMethod.POST)
+	public String updateComments(CommentsDTO commentsDTO, HttpSession session, Model model) throws Exception {
+//		UserDTO userDTO = (UserDTO)session.getAttribute("user");
+//		commentsDTO.setUserName(userDTO.getUserName());
+		
+		int result = service.updateComments(commentsDTO);
 		
 		model.addAttribute("result", result);
 		
