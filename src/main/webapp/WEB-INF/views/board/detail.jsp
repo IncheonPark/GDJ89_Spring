@@ -70,9 +70,9 @@
 		
 		<c:if test="${user.userName eq dto.userName }">
 		<a href="./update?boardNum=${dto.boardNum}" class="btn btn-outline-info">수정</a>
-		<a href="./delete?boardNum=${dto.boardNum}" class="btn btn-outline-danger">삭제</a>
-		<a href="./reply?boardNum=${dto.boardNum}" class="btn btn-outline-primary">답글</a>
+		<a href="./delete?boardNum=${dto.boardNum}" class="btn btn-outline-danger">삭제</a>		
 		</c:if>
+		<a href="./reply?boardNum=${dto.boardNum}" class="btn btn-outline-primary">답글</a>
 		
 	</div>
 </div>
